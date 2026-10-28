@@ -1,0 +1,1 @@
+Debating how I want to do this, I think i am going to be ambitious and have it become the true opensource ZOHO docker containers, GO, Rust, React, the latest stack and have it built to integrate with AI and become part of shippin.cloud

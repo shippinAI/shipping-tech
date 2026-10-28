@@ -1,0 +1,21 @@
+[Unit]
+Description=shippin.tech Server
+Conflicts=postfix.service sendmail.service exim4.service
+ConditionPathExists=__PATH__/etc/config.json
+After=network-online.target
+
+[Service]
+Type=notify
+LimitNOFILE=65536
+KillMode=process
+KillSignal=SIGINT
+Restart=on-failure
+RestartSec=5
+ExecStart=__PATH__/bin/shippin.tech --config=__PATH__/etc/config.json
+SyslogIdentifier=shippin.tech
+User=shippin.tech
+Group=shippin.tech
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target

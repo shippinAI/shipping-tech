@@ -1,0 +1,20 @@
+dn: ou=groups,dc=shippin.tech,dc=test
+objectClass: organizationalUnit
+ou: groups
+
+dn: cn=sales,ou=groups,dc=shippin.tech,dc=test
+objectClass: groupOfNames
+objectClass: extensibleObject
+cn: sales
+mail: sales@example.org
+member: uid=john.doe,ou=users,dc=shippin.tech,dc=test
+member: uid=jane.smith,ou=users,dc=shippin.tech,dc=test
+
+dn: cn=corporate,ou=groups,dc=shippin.tech,dc=test
+objectClass: groupOfNames
+objectClass: extensibleObject
+cn: corporate
+mail: corporate@example.org
+mailAlias: everyone@example.org
+member: uid=bill.foobar,ou=users,dc=shippin.tech,dc=test
+member: uid=jane.smith,ou=users,dc=shippin.tech,dc=test
