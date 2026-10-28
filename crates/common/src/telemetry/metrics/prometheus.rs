@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use prometheus::{
     TextEncoder,
@@ -17,7 +13,7 @@ impl Server {
         let mut metrics = Vec::new();
 
         // SPDX-SnippetBegin
-        // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+        // : >
         // SPDX-License-Identifier: LicenseRef-SEL
         #[cfg(feature = "enterprise")]
         let is_enterprise = self.is_enterprise_edition();

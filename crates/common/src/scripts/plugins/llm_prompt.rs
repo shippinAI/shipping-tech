@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use sieve::{FunctionMap, compiler::Number, runtime::Variable};
 use std::time::Instant;
@@ -16,7 +12,7 @@ pub fn register(plugin_id: u32, fnc_map: &mut FunctionMap) {
 
 pub async fn exec(ctx: PluginContext<'_>) -> trc::Result<Variable> {
     // SPDX-SnippetBegin
-    // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+    // : >
     // SPDX-License-Identifier: LicenseRef-SEL
 
     #[cfg(feature = "enterprise")]

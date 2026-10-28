@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 // Adapted from rustls-acme (https://github.com/FlorianUekermann/rustls-acme), licensed under MIT/Apache-2.0.
 

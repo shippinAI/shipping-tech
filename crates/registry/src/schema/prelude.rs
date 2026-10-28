@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 pub use crate::jmap::IntoValue;
 pub use crate::jmap::JmapValue;
 pub use crate::jmap::MaybeUnpatched;

@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::{
     IterateParams, RegistryStore, SUBSPACE_REGISTRY_IDX, SUBSPACE_REGISTRY_PK, Store, U16_LEN,

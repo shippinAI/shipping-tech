@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::{
     HttpSessionManager,
@@ -45,7 +41,7 @@ use jmap::{
 };
 use jmap_proto::request::{Request, capability::Session};
 // SPDX-SnippetBegin
-// SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+// : >
 // SPDX-License-Identifier: LicenseRef-SEL
 #[cfg(feature = "enterprise")]
 use scim::request::ScimRequestHandler;
@@ -443,7 +439,7 @@ impl ParseHttp for Server {
                 _ => (),
             },
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             "scim" => {
@@ -507,7 +503,7 @@ impl ParseHttp for Server {
                     && path.next().unwrap_or_default() == "rsvp"
                 {
                     // SPDX-SnippetBegin
-                    // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                    // : >
                     // SPDX-License-Identifier: LicenseRef-SEL
                     #[cfg(feature = "enterprise")]
                     if let Some(page) = self
@@ -624,7 +620,7 @@ impl ParseHttp for Server {
                 _ => (),
             },
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             "logo" if self.is_enterprise_edition() => {

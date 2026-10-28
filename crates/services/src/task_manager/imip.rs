@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::task_manager::TaskResult;
 use calcard::icalendar::{ICalendarParticipationStatus, ICalendarProperty};
@@ -324,7 +320,7 @@ pub async fn build_itip_template(
     logo_cid: &str,
 ) -> trc::Result<Details> {
     // SPDX-SnippetBegin
-    // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+    // : >
     // SPDX-License-Identifier: LicenseRef-SEL
     #[cfg(feature = "enterprise")]
     let template = server

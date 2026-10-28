@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::{Server, auth::DomainCache, cache::invalidate::CacheInvalidationBuilder};
 use registry::{
@@ -51,7 +47,7 @@ impl Server {
                             .ctx(trc::Key::AccountId, account_id)
                     })?;
                 // SPDX-SnippetBegin
-                // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                // : >
                 // SPDX-License-Identifier: LicenseRef-SEL
                 #[cfg(feature = "enterprise")]
                 if domain.allows_scim_provisioning() && self.core.is_enterprise_edition() {
@@ -178,7 +174,7 @@ impl Server {
             }
             None => {
                 // SPDX-SnippetBegin
-                // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                // : >
                 // SPDX-License-Identifier: LicenseRef-SEL
                 #[cfg(feature = "enterprise")]
                 if domain.allows_scim_provisioning() && self.core.is_enterprise_edition() {
@@ -241,7 +237,7 @@ impl Server {
                 }));
 
                 // SPDX-SnippetBegin
-                // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                // : >
                 // SPDX-License-Identifier: LicenseRef-SEL
                 #[cfg(feature = "enterprise")]
                 if self.core.is_enterprise_edition() && !self.can_create_account().await? {
@@ -301,7 +297,7 @@ impl Server {
                             .ctx(trc::Key::AccountId, account_id)
                     })?;
                 // SPDX-SnippetBegin
-                // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                // : >
                 // SPDX-License-Identifier: LicenseRef-SEL
                 #[cfg(feature = "enterprise")]
                 if domain.allows_scim_provisioning() && self.core.is_enterprise_edition() {
@@ -390,7 +386,7 @@ impl Server {
             }
             None => {
                 // SPDX-SnippetBegin
-                // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                // : >
                 // SPDX-License-Identifier: LicenseRef-SEL
                 #[cfg(feature = "enterprise")]
                 if domain.allows_scim_provisioning() && self.core.is_enterprise_edition() {
@@ -434,7 +430,7 @@ impl Server {
                 }));
 
                 // SPDX-SnippetBegin
-                // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                // : >
                 // SPDX-License-Identifier: LicenseRef-SEL
                 #[cfg(feature = "enterprise")]
                 if self.core.is_enterprise_edition() && !self.can_create_account().await? {

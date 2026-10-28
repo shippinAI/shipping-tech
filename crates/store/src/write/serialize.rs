@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use super::{ARCHIVE_ALIGNMENT, AlignedBytes, Archive, ArchiveVersion, Archiver};
 use crate::{Deserialize, Serialize, SerializeInfallible, U32_LEN, U64_LEN, Value};

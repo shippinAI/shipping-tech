@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use super::{Event, PURGE_EVERY, SEND_TIMEOUT, push::spawn_push_manager};
 use crate::state_manager::IpcSubscriber;

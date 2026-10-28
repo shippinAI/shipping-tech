@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::registry::mapping::{ObjectResponse, ValidationResult};
 use common::{
@@ -40,7 +36,7 @@ pub async fn validate_account(
     old_account: AccountUpdate<'_>,
 ) -> ValidationResult {
     // SPDX-SnippetBegin
-    // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+    // : >
     // SPDX-License-Identifier: LicenseRef-SEL
     #[cfg(feature = "enterprise")]
     if server.core.is_enterprise_edition()
@@ -362,7 +358,7 @@ pub(crate) async fn validate_role(
 }
 
 // SPDX-SnippetBegin
-// SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+// : >
 // SPDX-License-Identifier: LicenseRef-SEL
 #[cfg(feature = "enterprise")]
 pub async fn validate_tenant_quota(
@@ -444,7 +440,7 @@ pub async fn schedule_account_destruction(
     account: &Account,
 ) -> trc::Result<()> {
     // SPDX-SnippetBegin
-    // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+    // : >
     // SPDX-License-Identifier: LicenseRef-SEL
     #[cfg(feature = "enterprise")]
     let status = server

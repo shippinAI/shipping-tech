@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::{
     api::query::QueryResponseBuilder,
@@ -338,7 +334,7 @@ fn strip_ansi(line: &str) -> Cow<'_, str> {
 }
 
 /*
- * SPDX-FileCopyrightText: 2017 Michael Coyne <mjc@hey.com>
+ * : 2017 Michael Coyne <mjc@hey.com>
  *
  * SPDX-License-Identifier: MIT
  */

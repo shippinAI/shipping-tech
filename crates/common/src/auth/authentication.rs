@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::{
     Server,
@@ -511,7 +507,7 @@ impl Server {
         domain_name: &str,
     ) -> trc::Result<Option<&Arc<Directory>>> {
         // SPDX-SnippetBegin
-        // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+        // : >
         // SPDX-License-Identifier: LicenseRef-SEL
         #[cfg(feature = "enterprise")]
         if self.core.is_enterprise_edition() {
@@ -547,7 +543,7 @@ impl Server {
 
     fn get_directory_for_issuer(&self, issuer: &str) -> Option<&Arc<Directory>> {
         // SPDX-SnippetBegin
-        // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+        // : >
         // SPDX-License-Identifier: LicenseRef-SEL
         #[cfg(feature = "enterprise")]
         if self.core.is_enterprise_edition() {
@@ -569,7 +565,7 @@ impl Server {
 
     pub fn get_directory_for_cached_domain(&self, domain: &DomainCache) -> Option<&Arc<Directory>> {
         // SPDX-SnippetBegin
-        // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+        // : >
         // SPDX-License-Identifier: LicenseRef-SEL
         #[cfg(feature = "enterprise")]
         if self.core.is_enterprise_edition() {

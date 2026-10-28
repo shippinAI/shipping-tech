@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use std::{net::IpAddr, str::FromStr};
 use utils::{sanitize_domain, sanitize_email, sanitize_email_local};

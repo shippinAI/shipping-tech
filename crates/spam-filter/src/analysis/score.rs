@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::{
     SpamFilterContext,
@@ -22,7 +18,7 @@ use common::{Server, config::mailstore::spamfilter::SpamFilterAction};
 use std::{fmt::Write, future::Future, vec};
 
 // SPDX-SnippetBegin
-// SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+// : >
 // SPDX-License-Identifier: LicenseRef-SEL
 #[cfg(feature = "enterprise")]
 use crate::analysis::llm::SpamFilterAnalyzeLlm;
@@ -236,7 +232,7 @@ impl SpamFilterAnalyzeScore for Server {
         self.spam_filter_analyze_html(ctx).await;
 
         // SPDX-SnippetBegin
-        // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+        // : >
         // SPDX-License-Identifier: LicenseRef-SEL
 
         // LLM classification

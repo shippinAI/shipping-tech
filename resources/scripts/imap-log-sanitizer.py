@@ -3,9 +3,9 @@
 IMAP Log sanitizer - Extracts and groups IMAP transactions from log files
 """
 
-# SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+# : >
 #
-# SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
+
 
 import re
 import json

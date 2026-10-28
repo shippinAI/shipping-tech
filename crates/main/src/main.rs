@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 #![warn(clippy::large_futures)]
 #![warn(clippy::cast_possible_truncation)]
@@ -70,7 +66,7 @@ async fn main() -> std::io::Result<()> {
     init.bootstrap.log_warnings();
 
     // SPDX-SnippetBegin
-    // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+    // : >
     // SPDX-License-Identifier: LicenseRef-SEL
     // Log licensing information
     #[cfg(feature = "enterprise")]

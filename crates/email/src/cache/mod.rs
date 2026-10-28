@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use common::{MessageStoreCache, Server, UpdateLock, cache::LockResult};
 use email::{full_email_cache_build, update_email_cache};

@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+ * : >
  *
  * SPDX-License-Identifier: LicenseRef-SEL
  */

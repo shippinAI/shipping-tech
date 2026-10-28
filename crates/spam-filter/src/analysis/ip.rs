@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use super::ElementLocation;
 use crate::{IpParts, SpamFilterContext, TextPart, modules::dnsbl::check_dnsbl};

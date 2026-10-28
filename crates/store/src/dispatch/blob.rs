@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::{BlobStore, CompressionAlgo, Store, U32_LEN};
 use std::{ops::Range, time::Instant};
@@ -30,7 +26,7 @@ impl BlobStore {
                 Store::RocksDb(store) => store.get_blob(key, 0..usize::MAX).await,
                 Store::Ephemeral(store) => store.get_blob(key, 0..usize::MAX).await,
                 // SPDX-SnippetBegin
-                // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                // : >
                 // SPDX-License-Identifier: LicenseRef-SEL
                 #[cfg(all(feature = "enterprise", any(feature = "postgres", feature = "mysql")))]
                 Store::SQLReadReplica(store) => store.get_blob(key, 0..usize::MAX).await,
@@ -43,7 +39,7 @@ impl BlobStore {
             #[cfg(feature = "azure")]
             BlobStore::Azure(store) => store.get_blob(key, 0..usize::MAX).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             BlobStore::Sharded(store) => store.get_blob(key, 0..usize::MAX).await,
@@ -152,7 +148,7 @@ impl BlobStore {
                 Store::RocksDb(store) => store.put_blob(key, &data).await,
                 Store::Ephemeral(store) => store.put_blob(key, &data).await,
                 // SPDX-SnippetBegin
-                // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                // : >
                 // SPDX-License-Identifier: LicenseRef-SEL
                 #[cfg(all(feature = "enterprise", any(feature = "postgres", feature = "mysql")))]
                 Store::SQLReadReplica(store) => store.put_blob(key, &data).await,
@@ -165,7 +161,7 @@ impl BlobStore {
             #[cfg(feature = "azure")]
             BlobStore::Azure(store) => store.put_blob(key, &data).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             BlobStore::Sharded(store) => store.put_blob(key, &data).await,
@@ -199,7 +195,7 @@ impl BlobStore {
                 Store::RocksDb(store) => store.delete_blob(key).await,
                 Store::Ephemeral(store) => store.delete_blob(key).await,
                 // SPDX-SnippetBegin
-                // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                // : >
                 // SPDX-License-Identifier: LicenseRef-SEL
                 #[cfg(all(feature = "enterprise", any(feature = "postgres", feature = "mysql")))]
                 Store::SQLReadReplica(store) => store.delete_blob(key).await,
@@ -212,7 +208,7 @@ impl BlobStore {
             #[cfg(feature = "azure")]
             BlobStore::Azure(store) => store.delete_blob(key).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             BlobStore::Sharded(store) => store.delete_blob(key).await,

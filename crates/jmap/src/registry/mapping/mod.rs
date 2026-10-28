@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use common::{Server, auth::AccessToken};
 use jmap_proto::{
@@ -38,7 +34,7 @@ pub mod task;
 pub mod tls;
 
 // SPDX-SnippetBegin
-// SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+// : >
 // SPDX-License-Identifier: LicenseRef-SEL
 #[cfg(feature = "enterprise")]
 pub mod masked_email;

@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::registry::{
     EnterpriseRegistry,
@@ -350,7 +346,7 @@ impl RegistryGet for Server {
             | ObjectType::TlsInternalReport => report_get(get).await.map(|get| get.into_response()),
 
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             ObjectType::ArchivedItem => {

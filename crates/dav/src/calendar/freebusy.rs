@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use super::query::CalendarQueryHandler;
 use crate::{DavError, calendar::query::is_resource_in_time_range, common::uri::DavUriResource};

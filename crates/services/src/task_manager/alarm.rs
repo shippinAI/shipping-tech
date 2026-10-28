@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use calcard::icalendar::{
     ArchivedICalendarParameterName, ArchivedICalendarProperty, ICalendarProperty,
@@ -553,7 +549,7 @@ async fn build_template(
     };
 
     // SPDX-SnippetBegin
-    // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+    // : >
     // SPDX-License-Identifier: LicenseRef-SEL
     #[cfg(feature = "enterprise")]
     let template = server

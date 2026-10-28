@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use registry::schema::structs::Rate;
 use std::borrow::Cow;
@@ -48,7 +44,7 @@ impl InMemoryStore {
             #[cfg(feature = "redis")]
             InMemoryStore::Redis(store) => store.key_set(&kv.key, &kv.value, kv.expires).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             InMemoryStore::Sharded(store) => store.key_set(kv).await,
@@ -99,7 +95,7 @@ impl InMemoryStore {
             #[cfg(feature = "redis")]
             InMemoryStore::Redis(store) => store.key_incr(&kv.key, kv.value, kv.expires).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             InMemoryStore::Sharded(store) => store.counter_incr(kv).await,
@@ -124,7 +120,7 @@ impl InMemoryStore {
             #[cfg(feature = "redis")]
             InMemoryStore::Redis(store) => store.key_delete(key.into().as_bytes()).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             InMemoryStore::Sharded(store) => store.key_delete(key).await,
@@ -149,7 +145,7 @@ impl InMemoryStore {
             #[cfg(feature = "redis")]
             InMemoryStore::Redis(store) => store.key_delete(key.into().as_bytes()).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             InMemoryStore::Sharded(store) => store.counter_delete(key).await,
@@ -194,7 +190,7 @@ impl InMemoryStore {
             #[cfg(feature = "redis")]
             InMemoryStore::Redis(store) => store.key_delete_prefix(prefix).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             InMemoryStore::Sharded(store) => store.key_delete_prefix(prefix).await,
@@ -220,7 +216,7 @@ impl InMemoryStore {
             #[cfg(feature = "redis")]
             InMemoryStore::Redis(store) => store.key_get(key.into().as_bytes()).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             InMemoryStore::Sharded(store) => store.key_get(key).await,
@@ -256,7 +252,7 @@ impl InMemoryStore {
             #[cfg(feature = "redis")]
             InMemoryStore::Redis(store) => store.counter_get(key.into().as_bytes()).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             InMemoryStore::Sharded(store) => store.counter_get(key).await,
@@ -279,7 +275,7 @@ impl InMemoryStore {
             #[cfg(feature = "redis")]
             InMemoryStore::Redis(store) => store.key_exists(key.into().as_bytes()).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             InMemoryStore::Sharded(store) => store.key_exists(key).await,
@@ -389,7 +385,7 @@ impl InMemoryStore {
                     .await
             }
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             InMemoryStore::Sharded(store) => {
@@ -492,7 +488,7 @@ impl InMemoryStore {
             #[cfg(feature = "redis")]
             InMemoryStore::Redis(_) => {}
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             InMemoryStore::Sharded(_) => {}

@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use super::DocumentSet;
 use crate::{
@@ -36,7 +32,7 @@ impl Store {
             Self::RocksDb(store) => store.get_value(key).await,
             Self::Ephemeral(store) => store.get_value(key).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(all(feature = "enterprise", any(feature = "postgres", feature = "mysql")))]
             Self::SQLReadReplica(store) => store.get_value(key).await,
@@ -60,7 +56,7 @@ impl Store {
             Self::RocksDb(store) => store.key_exists(key).await,
             Self::Ephemeral(store) => store.key_exists(key).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(all(feature = "enterprise", any(feature = "postgres", feature = "mysql")))]
             Self::SQLReadReplica(store) => store.key_exists(key).await,
@@ -89,7 +85,7 @@ impl Store {
             Self::RocksDb(store) => store.iterate(params, cb).await,
             Self::Ephemeral(store) => store.iterate(params, cb).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(all(feature = "enterprise", any(feature = "postgres", feature = "mysql")))]
             Self::SQLReadReplica(store) => store.iterate(params, cb).await,
@@ -123,7 +119,7 @@ impl Store {
             Self::RocksDb(store) => store.get_counter(key).await,
             Self::Ephemeral(store) => store.get_counter(key).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(all(feature = "enterprise", any(feature = "postgres", feature = "mysql")))]
             Self::SQLReadReplica(store) => store.get_counter(key).await,
@@ -177,7 +173,7 @@ impl Store {
             Self::RocksDb(store) => store.write(batch).await,
             Self::Ephemeral(store) => store.write(batch).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(all(feature = "enterprise", any(feature = "postgres", feature = "mysql")))]
             Self::SQLReadReplica(store) => store.write(batch).await,
@@ -228,7 +224,7 @@ impl Store {
             Self::RocksDb(store) => store.purge_store().await,
             Self::Ephemeral(store) => store.purge_store().await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(all(feature = "enterprise", any(feature = "postgres", feature = "mysql")))]
             Self::SQLReadReplica(store) => store.purge_store().await,
@@ -252,7 +248,7 @@ impl Store {
             Self::RocksDb(store) => store.delete_range(from, to).await,
             Self::Ephemeral(store) => store.delete_range(from, to).await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(all(feature = "enterprise", any(feature = "postgres", feature = "mysql")))]
             Self::SQLReadReplica(store) => store.delete_range(from, to).await,
@@ -403,7 +399,7 @@ impl Store {
             #[cfg(feature = "mysql")]
             Self::MySQL(store) => store.create_storage_tables().await,
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(all(feature = "enterprise", any(feature = "postgres", feature = "mysql")))]
             Store::SQLReadReplica(store) => Box::pin(store.primary_store().create_tables()).await,

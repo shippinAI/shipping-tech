@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use ahash::AHashSet;
 use std::io::Write;
@@ -67,7 +63,7 @@ impl Subscriber {
 }
 
 // SPDX-SnippetBegin
-// SPDX-FileCopyrightText: 2018 Benjamin Saunders <ben.e.saunders@gmail.com>
+// : 2018 Benjamin Saunders <ben.e.saunders@gmail.com>
 // SPDX-License-Identifier: MIT
 
 #[cfg(target_os = "linux")]

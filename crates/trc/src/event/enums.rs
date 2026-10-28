@@ -1,10 +1,6 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
 
-// This file is auto-generated. Do not edit directly.
+
+
 
 pub const TOTAL_EVENT_COUNT: usize = 637;
 pub const TOTAL_METRIC_COUNT: usize = 369;

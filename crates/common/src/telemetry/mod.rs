@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 pub mod metrics;
 pub mod tracers;
@@ -109,7 +105,7 @@ impl TelemetrySubscriberType {
                 tracers::journald::spawn_journald_tracer(builder, subscriber)
             }
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             TelemetrySubscriberType::StoreTracer(subscriber) => {

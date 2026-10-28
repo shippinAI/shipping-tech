@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::jmap::compliance::{CompCtx, TestOutcome, check, check_eq, check_ne, skip};
 use crate::utils::jmap::{ChangeType, JmapResponse, JmapUtils};

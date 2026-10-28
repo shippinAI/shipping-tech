@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use mail_parser::{HeaderName, HeaderValue, MimeHeaders, parsers::fields::thread::thread_name};
 use sieve::{Context, compiler::ReceivedPart, runtime::Variable};

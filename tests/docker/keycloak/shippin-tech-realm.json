@@ -1,5 +1,5 @@
 {
-  "realm": "shippin.tech",
+  "realm": "shippin-tech",
   "enabled": true,
   "registrationAllowed": false,
   "loginWithEmailAllowed": true,
@@ -7,10 +7,10 @@
   "sslRequired": "none",
   "clients": [
     {
-      "clientId": "shippin.tech",
+      "clientId": "shippin-tech",
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "shippin.tech-secret",
+      "secret": "shippin-tech-secret",
       "redirectUris": [
         "*"
       ],
@@ -62,7 +62,7 @@
           "protocolMapper": "oidc-audience-mapper",
           "consentRequired": false,
           "config": {
-            "included.client.audience": "shippin.tech",
+            "included.client.audience": "shippin-tech",
             "id.token.claim": "false",
             "access.token.claim": "true"
           }
@@ -70,10 +70,10 @@
       ]
     },
     {
-      "clientId": "shippin.tech-fallback",
+      "clientId": "shippin-tech-fallback",
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "shippin.tech-fallback-secret",
+      "secret": "shippin-tech-fallback-secret",
       "redirectUris": [
         "*"
       ],
@@ -127,7 +127,7 @@
           "protocolMapper": "oidc-audience-mapper",
           "consentRequired": false,
           "config": {
-            "included.client.audience": "shippin.tech",
+            "included.client.audience": "shippin-tech",
             "id.token.claim": "false",
             "access.token.claim": "true"
           }
@@ -135,10 +135,10 @@
       ]
     },
     {
-      "clientId": "shippin.tech-userinfo-username",
+      "clientId": "shippin-tech-userinfo-username",
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "shippin.tech-userinfo-username-secret",
+      "secret": "shippin-tech-userinfo-username-secret",
       "redirectUris": [
         "*"
       ],
@@ -193,7 +193,7 @@
           "protocolMapper": "oidc-audience-mapper",
           "consentRequired": false,
           "config": {
-            "included.client.audience": "shippin.tech",
+            "included.client.audience": "shippin-tech",
             "id.token.claim": "false",
             "access.token.claim": "true"
           }

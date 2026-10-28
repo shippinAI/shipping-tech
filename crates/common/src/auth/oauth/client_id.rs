@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use super::{
     SCOPE_CALENDARS, SCOPE_CONTACTS, SCOPE_MAIL, SCOPE_OFFLINE_ACCESS, SCOPE_OPENID,

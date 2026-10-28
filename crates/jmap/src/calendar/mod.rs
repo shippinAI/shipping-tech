@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use groupware::calendar::{
     CALENDAR_AVAILABILITY_ALL, CALENDAR_AVAILABILITY_ATTENDING, CALENDAR_AVAILABILITY_NONE,

@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::config::storage::Storage;
 use ahash::{AHashMap, AHashSet};
@@ -41,7 +37,7 @@ pub enum TelemetrySubscriberType {
     #[cfg(unix)]
     JournalTracer(crate::telemetry::tracers::journald::Subscriber),
     // SPDX-SnippetBegin
-    // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+    // : >
     // SPDX-License-Identifier: LicenseRef-SEL
     #[cfg(feature = "enterprise")]
     StoreTracer(StoreTracer),
@@ -93,7 +89,7 @@ pub struct WebhookTracer {
 }
 
 // SPDX-SnippetBegin
-// SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+// : >
 // SPDX-License-Identifier: LicenseRef-SEL
 #[derive(Debug)]
 #[cfg(feature = "enterprise")]
@@ -403,7 +399,7 @@ impl Tracers {
                         EventType::Telemetry(TelemetryEvent::JournalError).into()
                     }
                     // SPDX-SnippetBegin
-                    // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                    // : >
                     // SPDX-License-Identifier: LicenseRef-SEL
                     #[cfg(feature = "enterprise")]
                     TelemetrySubscriberType::StoreTracer(_) => None,
@@ -432,7 +428,7 @@ impl Tracers {
             }
 
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
 
             // Parse tracing history

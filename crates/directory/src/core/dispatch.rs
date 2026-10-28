@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::{Account, Credentials, Directory, Recipient, backend::oidc::OidcDiscovery};
 use registry::schema::enums::DirectoryType;

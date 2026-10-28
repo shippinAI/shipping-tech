@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::{BlobStore, backend::fs::FsStore, registry::bootstrap::Bootstrap};
 use registry::schema::{prelude::ObjectType, structs};
@@ -40,7 +36,7 @@ impl BlobStore {
                 FsStore::open(file_system_store).await
             }
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
             #[cfg(feature = "enterprise")]
             structs::BlobStore::Sharded(store) => {
@@ -59,7 +55,7 @@ impl BlobStore {
     }
 
     // SPDX-SnippetBegin
-    // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+    // : >
     // SPDX-License-Identifier: LicenseRef-SEL
     #[cfg(feature = "enterprise")]
     pub fn downgrade_store(self) -> BlobStore {

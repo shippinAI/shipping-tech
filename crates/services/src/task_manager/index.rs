@@ -1,8 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
+
 
 use crate::task_manager::{Task, TaskDetails, TaskFailureType, TaskResult, deferred_retry_time};
 use common::Server;
@@ -548,7 +544,7 @@ async fn build_contact_document(
 }
 
 // SPDX-SnippetBegin
-// SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+// : >
 // SPDX-License-Identifier: LicenseRef-SEL
 
 #[cfg(feature = "enterprise")]
@@ -602,7 +598,7 @@ async fn delete_email_metadata(
             metadata.unindex(batch);
 
             // SPDX-SnippetBegin
-            // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+            // : >
             // SPDX-License-Identifier: LicenseRef-SEL
 
             // Hold blob for undeletion

@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+ * : >
  *
  * SPDX-License-Identifier: LicenseRef-SEL
  *
@@ -91,7 +91,7 @@ impl ShardedBlob {
                     Store::RocksDb(store) => store.get_blob(key, read_range).await,
                     Store::Ephemeral(store) => store.get_blob(key, read_range).await,
                     // SPDX-SnippetBegin
-                    // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                    // : >
                     // SPDX-License-Identifier: LicenseRef-SEL
                     #[cfg(all(
                         feature = "enterprise",
@@ -128,7 +128,7 @@ impl ShardedBlob {
                     Store::RocksDb(store) => store.put_blob(key, data).await,
                     Store::Ephemeral(store) => store.put_blob(key, data).await,
                     // SPDX-SnippetBegin
-                    // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                    // : >
                     // SPDX-License-Identifier: LicenseRef-SEL
                     #[cfg(all(
                         feature = "enterprise",
@@ -165,7 +165,7 @@ impl ShardedBlob {
                     Store::RocksDb(store) => store.delete_blob(key).await,
                     Store::Ephemeral(store) => store.delete_blob(key).await,
                     // SPDX-SnippetBegin
-                    // SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
+                    // : >
                     // SPDX-License-Identifier: LicenseRef-SEL
                     #[cfg(all(
                         feature = "enterprise",

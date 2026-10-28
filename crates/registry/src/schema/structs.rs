@@ -1,10 +1,4 @@
-/*
- * SPDX-FileCopyrightText: 2020 shippin.tech Labs LLC <hello@support.shippin.tech>
- *
- * SPDX-License-Identifier: AGPL-3.0-only OR LicenseRef-SEL
- */
 
-// This file is auto-generated. Do not edit directly.
 
 use crate::schema::prelude::*;
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
