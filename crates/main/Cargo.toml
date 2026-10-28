@@ -2,12 +2,12 @@
 name = "shippin.tech"
 description = "shippin.tech Mail and Collaboration Server"
 authors = [ "shippin.tech Labs LLC <hello@support.shippin.tech>"]
-repository = "https://github.com/shippin.techlabs/shippin.tech"
-homepage = "https://support.shippin.tech"
+repository = "https://github.com/shippinAI/shippin-tech"
+homepage = "https://shippin.tech"
 keywords = ["imap", "jmap", "smtp", "email", "mail", "webdav", "server"]
 categories = ["email"]
-license = "AGPL-3.0-only OR LicenseRef-SEL"
-version = "0.16.27"
+license = "deciding"
+version = "0.1.0"
 edition = "2024"
 
 [[bin]]
@@ -31,7 +31,7 @@ directory = { path = "../directory" }
 http = { path = "../http" }
 scim = { path = "../scim" }
 dav = { path = "../dav" }
-groupware = { path = "../groupware" }
+shippin = { path = "../shippin" }
 services = { path = "../services" }
 trc = { path = "../trc" }
 utils = { path = "../utils" }
@@ -73,7 +73,7 @@ enterprise = [ "jmap/enterprise",
                "http/enterprise",
                "scim/enterprise",
                "dav/enterprise",
-               "groupware/enterprise",
+               "shippin/enterprise",
                "trc/enterprise",
                "services/enterprise",
                "migration/enterprise" ]

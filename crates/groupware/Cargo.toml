@@ -1,5 +1,5 @@
 [package]
-name = "groupware"
+name = "shippin"
 version = "0.16.27"
 edition = "2024"
 
