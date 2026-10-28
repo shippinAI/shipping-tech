@@ -118,7 +118,7 @@ impl AccountCapabilities for AccessToken {
                     Capability::WebSocket
                     | Capability::Principals
                     | Capability::PrincipalsAvailability
-                    | Capability::shippin.tech => return true,
+                    | Capability::ShippinTech => return true,
                     Capability::Core | Capability::PrincipalsOwner | Capability::WebPushVapid => {
                         return false;
                     }

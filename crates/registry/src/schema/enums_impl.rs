@@ -10372,8 +10372,8 @@ impl EnumImpl for SieveCapability {
             b"spamtest" => SieveCapability::Spamtest,
             b"spamtestplus" => SieveCapability::Spamtestplus,
             b"virustest" => SieveCapability::Virustest,
-            b"vnd.shippin.tech.while" => SieveCapability::Vndshippin.techWhile,
-            b"vnd.shippin.tech.expressions" => SieveCapability::Vndshippin.techExpressions,
+            b"vnd.shippin.tech.while" => SieveCapability::VndShippinTechWhile,
+            b"vnd.shippin.tech.expressions" => SieveCapability::VndShippinTechExpressions,
         }
     }
 
@@ -10426,8 +10426,8 @@ impl EnumImpl for SieveCapability {
             SieveCapability::Spamtest => "spamtest",
             SieveCapability::Spamtestplus => "spamtestplus",
             SieveCapability::Virustest => "virustest",
-            SieveCapability::Vndshippin.techWhile => "vnd.shippin.tech.while",
-            SieveCapability::Vndshippin.techExpressions => "vnd.shippin.tech.expressions",
+            SieveCapability::VndShippinTechWhile => "vnd.shippin.tech.while",
+            SieveCapability::VndShippinTechExpressions => "vnd.shippin.tech.expressions",
         }
     }
 
@@ -10484,8 +10484,8 @@ impl EnumImpl for SieveCapability {
             44 => Some(SieveCapability::Spamtest),
             45 => Some(SieveCapability::Spamtestplus),
             46 => Some(SieveCapability::Virustest),
-            47 => Some(SieveCapability::Vndshippin.techWhile),
-            48 => Some(SieveCapability::Vndshippin.techExpressions),
+            47 => Some(SieveCapability::VndShippinTechWhile),
+            48 => Some(SieveCapability::VndShippinTechExpressions),
             _ => None,
         }
     }

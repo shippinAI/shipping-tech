@@ -59,7 +59,7 @@ impl MethodObject {
             | MethodObject::ParticipantIdentity => Capability::Calendars,
             MethodObject::AddressBook | MethodObject::ContactCard => Capability::Contacts,
             MethodObject::FileNode => Capability::FileNode,
-            MethodObject::Registry(_) => Capability::shippin.tech,
+            MethodObject::Registry(_) => Capability::ShippinTech,
         }
     }
 }

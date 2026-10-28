@@ -5,12 +5,12 @@ use ahash::{AHashMap, AHashSet};
 use mail_parser::DateTime;
 use opentelemetry::{
     InstrumentationScope, Key, KeyValue, Value,
-    logs::{AnyValue, Severity},
+    logs::{AnyValue, Logger, LoggerProvider, Severity},
     trace::{SpanContext, SpanKind, Status, TraceFlags, TraceState},
 };
 use opentelemetry_sdk::{
     Resource,
-    logs::{LogBatch, LogExporter, SdkLogRecord},
+    logs::{LogBatch, LogExporter, SdkLogRecord, SdkLogger, SdkLoggerProvider},
     trace::{SpanData, SpanEvents, SpanExporter, SpanLinks},
 };
 use opentelemetry_semantic_conventions::resource::SERVICE_VERSION;
@@ -30,6 +30,7 @@ pub(crate) fn spawn_otel_tracer(builder: SubscriberBuilder, mut otel: OtelTracer
         let instrumentation = InstrumentationScope::builder("shippin.tech")
             .with_version(env!("CARGO_PKG_VERSION"))
             .build();
+        let logger = SdkLoggerProvider::builder().build().logger("shippin.tech");
 
         otel.log_exporter.set_resource(&resource);
         otel.span_exporter.set_resource(&resource);
@@ -50,7 +51,7 @@ pub(crate) fn spawn_otel_tracer(builder: SubscriberBuilder, mut otel: OtelTracer
                 Ok(Some(events)) => {
                     for event in events {
                         if otel.log_exporter_enable {
-                            pending_logs.push(otel.build_log_record(&event));
+                            pending_logs.push(otel.build_log_record(&logger, &event));
                         }
 
                         if otel.span_exporter_enable
@@ -181,10 +182,14 @@ where
 }
 
 impl OtelTracer {
-    fn build_log_record(&self, event: &Event<EventDetails>) -> SdkLogRecord {
+    fn build_log_record(
+        &self,
+        logger: &SdkLogger,
+        event: &Event<EventDetails>,
+    ) -> SdkLogRecord {
         use opentelemetry::logs::LogRecord;
 
-        let mut record = SdkLogRecord::new();
+        let mut record = logger.create_log_record();
         record.set_event_name(event.inner.typ.as_str());
         record.set_severity_number(match event.inner.level {
             Level::Trace => Severity::Trace,

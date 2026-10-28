@@ -1,5 +1,5 @@
 [package]
-name = "shippin.tech"
+name = "shippin-tech"
 description = "shippin.tech Mail and Collaboration Server"
 authors = [ "shippin.tech Labs LLC <hello@support.shippin.tech>"]
 repository = "https://github.com/shippinAI/shippin-tech"
@@ -11,7 +11,7 @@ version = "0.1.0"
 edition = "2024"
 
 [[bin]]
-name = "shippin.tech"
+name = "shippin-tech"
 path = "src/main.rs"
 
 [dependencies]
@@ -31,7 +31,7 @@ directory = { path = "../directory" }
 http = { path = "../http" }
 scim = { path = "../scim" }
 dav = { path = "../dav" }
-shippin = { path = "../shippin" }
+groupware = { path = "../groupware" }
 services = { path = "../services" }
 trc = { path = "../trc" }
 utils = { path = "../utils" }
@@ -51,6 +51,7 @@ tikv-jemallocator = "0.7"
 #default = ["sqlite", "postgres", "mysql", "rocks", "s3", "redis", "azure", "nats", "enterprise", "zenoh", "kafka"]
 #default = ["sqlite", "postgres", "mysql", "rocks", "s3", "redis", "azure", "nats", "enterprise"]
 default = ["rocks", "enterprise"]
+scale = ["rocks", "foundationdb", "s3", "redis", "nats"]
 sqlite = ["store/sqlite", "directory/sqlite"]
 foundationdb = ["store/foundation", "common/foundation"]
 postgres = ["store/postgres", "directory/postgres"]
@@ -73,7 +74,7 @@ enterprise = [ "jmap/enterprise",
                "http/enterprise",
                "scim/enterprise",
                "dav/enterprise",
-               "shippin/enterprise",
+               "groupware/enterprise",
                "trc/enterprise",
                "services/enterprise",
                "migration/enterprise" ]

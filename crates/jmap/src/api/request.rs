@@ -103,7 +103,7 @@ impl RequestHandler for Server {
 
             if !matches!(call.method, RequestMethod::Error(_)) {
                 let capability = call.name.obj.capability();
-                if capability != Capability::shippin.tech && !using.contains(capability) {
+                if capability != Capability::ShippinTech && !using.contains(capability) {
                     response.push_response(
                         call.id,
                         MethodName::error(),

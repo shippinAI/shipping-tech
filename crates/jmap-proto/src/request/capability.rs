@@ -86,7 +86,7 @@ pub enum Capability {
     #[serde(rename(serialize = "urn:ietf:params:jmap:mail:share"))]
     MailShare = 1 << 16,
     #[serde(rename(serialize = "urn:shippin.tech:jmap"))]
-    shippin.tech = 1 << 17,
+    ShippinTech = 1 << 17,
     #[serde(rename(serialize = "urn:ietf:params:jmap:webpush-vapid"))]
     WebPushVapid = 1 << 18,
     #[serde(rename(serialize = "urn:ietf:params:jmap:emailpush"))]
@@ -327,7 +327,7 @@ impl Capability {
             Capability::PrincipalsAvailability => "urn:ietf:params:jmap:principals:availability",
             Capability::FileNode => "urn:ietf:params:jmap:filenode",
             Capability::MailShare => "urn:ietf:params:jmap:mail:share",
-            Capability::shippin.tech => "urn:shippin.tech:jmap",
+            Capability::ShippinTech => "urn:shippin.tech:jmap",
             Capability::WebPushVapid => "urn:ietf:params:jmap:webpush-vapid",
             Capability::EmailPush => "urn:ietf:params:jmap:emailpush",
         }
@@ -351,7 +351,7 @@ impl Capability {
             Capability::PrincipalsAvailability,
             Capability::FileNode,
             Capability::MailShare,
-            Capability::shippin.tech,
+            Capability::ShippinTech,
             Capability::WebPushVapid,
             Capability::EmailPush,
         ]
@@ -473,7 +473,7 @@ impl Capability {
             "urn:ietf:params:jmap:contacts:parse" => Capability::ContactsParse,
             "urn:ietf:params:jmap:calendars:parse" => Capability::CalendarsParse,
             "urn:ietf:params:jmap:mail:share" => Capability::MailShare,
-            "urn:shippin.tech:jmap" => Capability::shippin.tech,
+            "urn:shippin.tech:jmap" => Capability::ShippinTech,
             "urn:ietf:params:jmap:webpush-vapid" => Capability::WebPushVapid,
             "urn:ietf:params:jmap:emailpush" => Capability::EmailPush,
         )

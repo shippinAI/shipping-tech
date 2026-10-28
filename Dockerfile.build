@@ -122,7 +122,7 @@ RUN \
     --mount=type=cache,target=/usr/local/cargo/git \
     source /env-cargo && \
     if [ ! -z "${FDB_ARCH}" ]; then \
-        env "${FDB_RUSTFLAGS_VAR}=-L /usr/lib" cargo chef cook --recipe-path recipe.json --zigbuild --release --target ${BUILD_TARGET} -p shippin.tech --no-default-features --features "foundationdb s3 redis nats enterprise"; \
+        env "${FDB_RUSTFLAGS_VAR}=-L /usr/lib" cargo chef cook --recipe-path recipe.json --zigbuild --release --target ${BUILD_TARGET} -p shippin-tech --no-default-features --features "foundationdb s3 redis nats enterprise"; \
     fi
 RUN \
     --mount=type=secret,id=ACTIONS_RESULTS_URL,env=ACTIONS_RESULTS_URL \
@@ -130,7 +130,7 @@ RUN \
     --mount=type=cache,target=/usr/local/cargo/registry \
     --mount=type=cache,target=/usr/local/cargo/git \
     source /env-cargo && \
-    cargo chef cook --recipe-path recipe.json --zigbuild --release --target ${BUILD_TARGET} -p shippin.tech --no-default-features --features "sqlite postgres mysql rocks s3 redis azure nats enterprise"
+    cargo chef cook --recipe-path recipe.json --zigbuild --release --target ${BUILD_TARGET} -p shippin-tech --no-default-features --features "sqlite postgres mysql rocks s3 redis azure nats enterprise"
 # Copy the source code
 COPY . .
 ENV RUSTC_WRAPPER="sccache" \
@@ -143,8 +143,8 @@ RUN \
     --mount=type=cache,target=/usr/local/cargo/git \
     source /env-cargo && \
     if [ ! -z "${FDB_ARCH}" ]; then \
-        env "${FDB_RUSTFLAGS_VAR}=-L /usr/lib" cargo zigbuild --release --target ${BUILD_TARGET} -p shippin.tech --no-default-features --features "foundationdb s3 redis nats enterprise" && \
-        mv /app/target/${TARGET}/release/shippin.tech /app/artifact/shippin.tech-foundationdb; \
+        env "${FDB_RUSTFLAGS_VAR}=-L /usr/lib" cargo zigbuild --release --target ${BUILD_TARGET} -p shippin-tech --no-default-features --features "foundationdb s3 redis nats enterprise" && \
+        mv /app/target/${TARGET}/release/shippin-tech /app/artifact/shippin.tech-foundationdb; \
     fi
 # Build generic version
 RUN \
@@ -153,8 +153,8 @@ RUN \
     --mount=type=cache,target=/usr/local/cargo/registry \
     --mount=type=cache,target=/usr/local/cargo/git \
     source /env-cargo && \
-    cargo zigbuild --release --target ${BUILD_TARGET} -p shippin.tech --no-default-features --features "sqlite postgres mysql rocks s3 redis azure nats enterprise" && \
-    mv /app/target/${TARGET}/release/shippin.tech /app/artifact/shippin.tech
+    cargo zigbuild --release --target ${BUILD_TARGET} -p shippin-tech --no-default-features --features "sqlite postgres mysql rocks s3 redis azure nats enterprise" && \
+    mv /app/target/${TARGET}/release/shippin-tech /app/artifact/shippin.tech
 
 # *****************
 # Binary stage

@@ -1,0 +1,40 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/main",
+    "crates/groupware",
+    "crates/smtp",
+    "crates/common",
+    "crates/utils",
+    "crates/utils/proc-macros",
+    "crates/types",
+    "crates/trc",
+    "crates/trc/event-macro",
+    "crates/spam-filter",
+    "crates/store",
+    "crates/services",
+    "crates/scim",
+    "crates/scim-proto",
+    "crates/pop3",
+    "crates/registry",
+    "crates/migration",
+    "crates/nlp",
+    "crates/managesieve",
+    "crates/jmap",
+    "crates/jmap-proto",
+    "crates/http",
+    "crates/http-proto",
+    "crates/imap",
+    "crates/imap-proto",
+    "crates/directory",
+    "crates/email",
+    "crates/dav",
+    "crates/dav-proto",
+    "crates/coordinator",
+    "tests",
+]
+default-members = ["crates/main"]
+
+[workspace.lints.rust]
+
+[workspace.lints.clippy]

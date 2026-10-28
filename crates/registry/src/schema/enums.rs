@@ -2495,8 +2495,8 @@ pub enum SieveCapability {
     Spamtest = 44,
     Spamtestplus = 45,
     Virustest = 46,
-    Vndshippin.techWhile = 47,
-    Vndshippin.techExpressions = 48,
+    VndShippinTechWhile = 47,
+    VndShippinTechExpressions = 48,
 }
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Hash)]

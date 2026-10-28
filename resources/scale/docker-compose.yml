@@ -1,0 +1,95 @@
+# Two shippin.tech nodes, one FoundationDB cluster, one S3 bucket, one NATS coordinator.
+# Build with Dockerfile.fdb, which uses the `scale` feature and leaves `enterprise` off.
+#
+# The file mounted at /etc/shippin.tech/config.json is only the shared data store.
+# S3 and NATS are registry records in that database. tests/src/cluster/scale.rs
+# writes them and checks that the nodes lease different ids and that a message
+# appended on node A is fetched on node B:
+#   STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes
+
+services:
+  foundationdb:
+    image: foundationdb/foundationdb:7.4.6
+    environment:
+      FDB_NETWORKING_MODE: container
+    volumes:
+      - fdb-config:/var/fdb
+    tmpfs:
+      - /var/fdb/data
+      - /var/fdb/logs
+    healthcheck:
+      test: ["CMD-SHELL", "fdbcli --exec 'status' --timeout 3 >/dev/null 2>&1"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+      start_period: 5s
+
+  fdb-init:
+    image: foundationdb/foundationdb:7.4.6
+    depends_on:
+      foundationdb:
+        condition: service_healthy
+    volumes:
+      - fdb-config:/var/fdb
+      - ../../tests/docker/scripts/init-fdb.sh:/init-fdb.sh:ro
+    entrypoint: ["bash", "-c", "bash /init-fdb.sh && chmod a+r /var/fdb/fdb.cluster"]
+
+  minio:
+    image: minio/minio:latest
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    tmpfs:
+      - /data
+
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    volumes:
+      - ../../tests/docker/scripts/init-minio.sh:/init-minio.sh:ro
+    entrypoint: ["bash", "/init-minio.sh"]
+
+  nats:
+    image: nats:latest
+    command: "--addr 0.0.0.0 --port 4222 --http_port 8222"
+
+  node-a:
+    build:
+      context: ../..
+      dockerfile: Dockerfile.fdb
+    depends_on:
+      fdb-init:
+        condition: service_completed_successfully
+      minio-init:
+        condition: service_completed_successfully
+      nats:
+        condition: service_started
+    environment:
+      shippin.tech_HOSTNAME: node-a.shippin.tech
+    volumes:
+      - fdb-config:/var/fdb:ro
+      - ./config.json:/etc/shippin.tech/config.json:ro
+    ports:
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:993:993"
+
+  node-b:
+    build:
+      context: ../..
+      dockerfile: Dockerfile.fdb
+    depends_on:
+      node-a:
+        condition: service_healthy
+    environment:
+      shippin.tech_HOSTNAME: node-b.shippin.tech
+    volumes:
+      - fdb-config:/var/fdb:ro
+      - ./config.json:/etc/shippin.tech/config.json:ro
+    ports:
+      - "127.0.0.1:8081:8080"
+      - "127.0.0.1:1993:993"
+
+volumes:
+  fdb-config:

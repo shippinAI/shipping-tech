@@ -21,7 +21,7 @@ RUN rustup target add "$(cat /target.txt)"
 COPY --from=planner /recipe.json /recipe.json
 RUN RUSTFLAGS="$(cat /flags.txt)" cargo chef cook --target "$(cat /target.txt)" --release --no-default-features --features "sqlite postgres mysql rocks s3 redis azure nats enterprise" --recipe-path /recipe.json
 COPY . .
-RUN RUSTFLAGS="$(cat /flags.txt)" cargo build --target "$(cat /target.txt)" --release -p shippin.tech --no-default-features --features "sqlite postgres mysql rocks s3 redis azure nats enterprise"
+RUN RUSTFLAGS="$(cat /flags.txt)" cargo build --target "$(cat /target.txt)" --release -p shippin-tech --no-default-features --features "sqlite postgres mysql rocks s3 redis azure nats enterprise"
 RUN mv "/build/target/$(cat /target.txt)/release" "/output"
 
 FROM docker.io/debian:trixie-slim
@@ -33,7 +33,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     useradd -r -u 2000 -g 2000 -s /usr/sbin/nologin -M shippin.tech && \
     mkdir -p /etc/shippin.tech /var/lib/shippin.tech && \
     chown shippin.tech:shippin.tech /etc/shippin.tech /var/lib/shippin.tech
-COPY --from=builder --chmod=0755 /output/shippin.tech /usr/local/bin/shippin.tech
+COPY --from=builder --chmod=0755 /output/shippin-tech /usr/local/bin/shippin.tech
 RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/shippin.tech
 USER shippin.tech
 WORKDIR /var/lib/shippin.tech

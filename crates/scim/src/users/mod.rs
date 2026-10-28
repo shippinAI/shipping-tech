@@ -471,7 +471,7 @@ mod tests {
     }
 
     #[test]
-    fn locales_round_trip_between_scim_and_shippin.tech() {
+    fn locales_round_trip_between_scim_and_shippin_tech() {
         let mut account = UserAccount::default();
 
         for (scim, expected) in [

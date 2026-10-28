@@ -4,18 +4,26 @@ use crate::config::storage::Storage;
 use ahash::{AHashMap, AHashSet};
 use base64::{Engine, engine::general_purpose::STANDARD};
 use hyper::HeaderMap;
-use opentelemetry::{InstrumentationScope, KeyValue};
+use opentelemetry::KeyValue;
 use opentelemetry_otlp::{
     LogExporter, MetricExporter, SpanExporter, WithExportConfig, WithHttpConfig,
 };
-use opentelemetry_sdk::{Resource, metrics::Temporality};
+use opentelemetry_sdk::{
+    Resource,
+    metrics::{SdkMeterProvider, Temporality},
+};
 use opentelemetry_semantic_conventions::resource::SERVICE_VERSION;
 use registry::schema::{
     enums::{EventPolicy, LogRotateFrequency},
     prelude::ObjectType,
     structs::{self, EventTracingLevel, MetricsPrometheus, Tracer, WebHook},
 };
-use std::{collections::HashMap, str::FromStr, sync::Arc, time::Duration};
+use std::{
+    collections::HashMap,
+    str::FromStr,
+    sync::{Arc, Mutex},
+    time::Duration,
+};
 use store::registry::bootstrap::Bootstrap;
 use trc::{EventType, Level, MetricType, TelemetryEvent, ipc::subscriber::Interests};
 
@@ -54,10 +62,10 @@ pub struct OtelTracer {
 }
 
 pub struct OtelMetrics {
-    pub resource: Resource,
-    pub instrumentation: InstrumentationScope,
-    pub exporter: MetricExporter,
+    pub provider: SdkMeterProvider,
     pub interval: Duration,
+    pub last_counters: Mutex<AHashMap<u16, u64>>,
+    pub last_histograms: Mutex<AHashMap<u16, Vec<u64>>>,
 }
 
 #[derive(Debug)]
@@ -588,9 +596,6 @@ impl Metrics {
             .with_service_name("shippin.tech")
             .with_attribute(KeyValue::new(SERVICE_VERSION, env!("CARGO_PKG_VERSION")))
             .build();
-        let instrumentation = InstrumentationScope::builder("shippin.tech")
-            .with_version(env!("CARGO_PKG_VERSION"))
-            .build();
 
         Metrics {
             prometheus: match metrics.prometheus {
@@ -643,12 +648,11 @@ impl Metrics {
                     }
 
                     match exporter.build() {
-                        Ok(exporter) => Some(Arc::new(OtelMetrics {
+                        Ok(exporter) => Some(Arc::new(OtelMetrics::new(
                             exporter,
-                            interval: otel.interval.into_inner(),
-                            resource,
-                            instrumentation,
-                        })),
+                            resource.clone(),
+                            otel.interval.into_inner(),
+                        ))),
                         Err(err) => {
                             bp.build_error(
                                 ObjectType::Metrics.singleton(),
@@ -669,12 +673,11 @@ impl Metrics {
                     }
 
                     match exporter.build() {
-                        Ok(exporter) => Some(Arc::new(OtelMetrics {
+                        Ok(exporter) => Some(Arc::new(OtelMetrics::new(
                             exporter,
-                            interval: otel.interval.into_inner(),
-                            resource,
-                            instrumentation,
-                        })),
+                            resource.clone(),
+                            otel.interval.into_inner(),
+                        ))),
                         Err(err) => {
                             bp.build_error(
                                 ObjectType::Metrics.singleton(),

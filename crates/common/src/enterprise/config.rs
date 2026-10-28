@@ -58,6 +58,7 @@ impl Enterprise {
                     maybe_api_key,
                 ) {
                     (Ok(license), Some(api_key)) if license.is_near_expiration() => Ok(license
+                        .clone()
                         .try_renew(api_key.as_ref())
                         .await
                         .map(|result| {

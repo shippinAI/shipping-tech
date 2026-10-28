@@ -53,11 +53,11 @@ COPY Cargo.lock .
 COPY crates/ crates/
 COPY resources/ resources/
 COPY tests/ tests/
-RUN cargo build -p shippin.tech --no-default-features --features "foundationdb s3 redis azure nats enterprise" --release
+RUN cargo build -p shippin-tech --no-default-features --features "scale,enterprise" --release
 
 FROM debian:trixie-slim AS runtime
 
-COPY --from=builder --chmod=0755 /app/target/release/shippin.tech /usr/local/bin/shippin.tech
+COPY --from=builder --chmod=0755 /app/target/release/shippin-tech /usr/local/bin/shippin.tech
 COPY --from=builder /usr/lib/libfdb_c.so /usr/lib/libfdb_c.so
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
