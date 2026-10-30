@@ -1,0 +1,27 @@
+---
+description: shippin.tech product boundary. Engine first. Zoho client comes later.
+alwaysApply: true
+---
+
+# Product boundary
+
+shippin.tech is the open product and the brand. shippin.cloud is later paid hosting of the same server, not a second mail engine.
+
+This repository is the Rust mail and groupware engine: SMTP, IMAP, JMAP, POP3, ManageSieve, CalDAV, and CardDAV.
+
+## Current work
+
+Scale the engine. Leave the Zoho-style product for a later pass.
+
+Do not add, in this phase:
+
+- a webmail, calendar, or contacts client
+- an admin UI
+- a Go control plane
+- a second mail server, including Mox, Postfix, or Dovecot
+
+Mox is a product reference only. Do not port it or run it beside this server.
+
+## When the Zoho pass starts
+
+Map the hosted-mail experience onto JMAP, CalDAV, and the directory that already exist. Do not start that map until the open scale path below is the agreed default.

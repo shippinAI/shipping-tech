@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": "python .ai/machine/copy_chats.py --hook sessionStart",
+        "timeout": 10
+      }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "command": "python .ai/machine/copy_chats.py --hook beforeSubmitPrompt",
+        "timeout": 10,
+        "failClosed": false
+      }
+    ],
+    "postToolUse": [
+      {
+        "command": "python .ai/machine/copy_chats.py --hook postToolUse",
+        "timeout": 10
+      }
+    ],
+    "postToolUseFailure": [
+      {
+        "command": "python .ai/machine/copy_chats.py --hook postToolUseFailure",
+        "timeout": 10
+      }
+    ],
+    "afterAgentResponse": [
+      {
+        "command": "python .ai/machine/copy_chats.py --hook afterAgentResponse",
+        "timeout": 10
+      }
+    ],
+    "afterAgentThought": [
+      {
+        "command": "python .ai/machine/copy_chats.py --hook afterAgentThought",
+        "timeout": 10
+      }
+    ],
+    "preCompact": [
+      {
+        "command": "python .ai/machine/copy_chats.py --hook preCompact",
+        "timeout": 10
+      }
+    ],
+    "stop": [
+      {
+        "command": "python .ai/machine/copy_chats.py --hook stop",
+        "timeout": 10,
+        "loop_limit": 0
+      }
+    ],
+    "sessionEnd": [
+      {
+        "command": "python .ai/machine/copy_chats.py --hook sessionEnd",
+        "timeout": 10
+      }
+    ]
+  }
+}

@@ -9,4 +9,11 @@ run.sh
 !.cargo
 !.ai/
 !.ai/**
+.ai/**/__pycache__/
+*.pyc
+!.cursor/
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+!.cursor/hooks.json
 CLAUDE.md

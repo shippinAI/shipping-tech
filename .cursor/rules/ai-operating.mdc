@@ -1,0 +1,17 @@
+---
+description: Operating modules for COSTAR, canon, plans, chats, the journal, and the roadmap.
+alwaysApply: true
+---
+
+# Operating modules
+
+Each context is one folder under `.ai/modules/<id>/`. Read that folder's `SKILL.md` before acting in the context.
+
+- `.ai/modules/costar/SKILL.md`
+- `.ai/modules/canon/SKILL.md`
+- `.ai/modules/plans/SKILL.md`
+- `.ai/modules/chats/SKILL.md`
+- `.ai/modules/journal/SKILL.md`
+- `.ai/modules/roadmap/SKILL.md`
+
+File chats with `.ai/machine/copy_chats.py`. Check every module with `.ai/machine/organize.py --check`.

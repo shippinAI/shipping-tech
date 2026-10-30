@@ -1,0 +1,33 @@
+---
+description: License is undecided. Rocks stays a supported store. Enterprise stays in the build.
+alwaysApply: true
+---
+
+# License and scale
+
+## License is not chosen
+
+Do not mark this project AGPL. The maintainer is choosing between a true open-source license and the Business Source License (BSL).
+
+BSL is source-available. It can limit offering the software as a competing hosted service until a published conversion date, then it becomes a stated open license. A true open-source license cannot reserve commercial hosting for shippin.cloud.
+
+Until that choice is written into `Cargo.toml` (`license` is still `"deciding"`) and a `LICENSE` file:
+
+- leave `enterprise` on the default build and on both Dockerfiles
+- leave `SPDX-License-Identifier: LicenseRef-SEL` blocks and their headers untouched
+- do not relicense those blocks and do not copy them into a new file under another license
+
+## Rocks
+
+`rocks` compiles RocksDB as `DataStore::RocksDb`. The files live in the directory in `RocksDbStore.path`. One machine owns that directory. A second node with its own directory does not see those mailboxes.
+
+The scale build includes `rocks`. A one-node server keeps using it. Multi-node shared state is a separate store (`DataStore::FoundationDb`), with `BlobStore::S3` and `Coordinator::Nats` or `Coordinator::Redis`.
+
+`cargo build --features scale` keeps the default features, so the binary has Rocks, enterprise, FoundationDB, S3, Redis, and NATS.
+
+## Do not use as the shared layout
+
+These compile only with `enterprise` and are the SEL composite path:
+
+- `BlobStore::Sharded`, `InMemoryStore::Sharded`, `LookupStore::Sharded`
+- `store::backend::composite`
