@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "id": "2026-10-29-canon-intake",
+  "title": "Record the no-blind-import rule as its own module",
+  "costar": {
+    "context": "The maintainer said foreign code is never pulled in blindly. This build codes, aligns, and specs each intake.",
+    "objective": "Keep that rule as a plug-in module the checker discovers from module.json.",
+    "style": "One folder with a skill, a spec schema, and one decision record.",
+    "tone": "Direct.",
+    "audience": "The next coding agent and the maintainer.",
+    "response": "A canon module, a pointer in the always-on operating rule, and organize.py --check exiting 0 with six modules."
+  },
+  "sources": [
+    {"kind": "code", "ref": ".ai/PROTOCOL.md"},
+    {"kind": "code", "ref": ".ai/machine/organize.py"},
+    {"kind": "code", "ref": ".ai/machine/module.schema.json"},
+    {"kind": "code", "ref": ".ai/modules/plans/schema/plan.schema.json"},
+    {"kind": "code", "ref": ".cursor/rules/ai-operating.mdc"},
+    {"kind": "code", "ref": ".cursor/rules/product-boundaries.mdc"},
+    {"kind": "code", "ref": ".cursor/rules/license-and-scale.mdc"}
+  ],
+  "concerns": [
+    "A schema that allows any string for decision would accept an import. The spec enum is write-here or reject, and a check_node call must reject import.",
+    "Raising the self-test module floor would hardcode the module count. The floor stays at 6, which the probe still exceeds.",
+    "Editing organize.py to name canon would break plug-and-play. The checker must not gain a canon line."
+  ],
+  "context": "Five context modules already exist. The user required that outside code be rewritten here against our specs and practices.",
+  "current_state": "organize.py discovers every .ai/modules/<id>/module.json, requires SKILL.md, schema/, and data/, and does not list module ids except the journal writer. ai-operating.mdc lists five skills. There is no canon folder.",
+  "target_design": "canon is the sixth module. Adding it is a folder plus one bullet in the always-on rule. The checker source does not mention canon.",
+  "changes": [
+    "Create .ai/modules/canon with module.json, SKILL.md, schema/intake.schema.json, and data/no-blind-import.json.",
+    "Add the canon skill path to .cursor/rules/ai-operating.mdc.",
+    "Add canon to the PROTOCOL.md module table.",
+    "Point .cursor/skills/canon at the module folder.",
+    "Store this plan and set the COSTAR reading to this decision."
+  ],
+  "boundaries": [
+    "Do not edit organize.py.",
+    "Do not change Cargo.toml features or the license field.",
+    "Do not mark the build phase done.",
+    "Do not add a license validator.",
+    "Do not commit or push in this pass."
+  ],
+  "verification": [
+    {
+      "name": "import-is-rejected-and-probe-is-discovered",
+      "command": "python -c \"import organize\" from .ai/machine rejecting decision import; python .ai/machine/organize.py --self-test",
+      "proves": "The intake spec refuses decision import, and a temporary module is still discovered without a registry edit.",
+      "expected": "import rejected; self-test exit 0, ok true, modules 7",
+      "result": "rejected bad.decision: 'import' not in ['write-here', 'reject']; self-test {\"ok\": true, \"modules\": 7, \"documents\": 7, \"events\": 178, \"messages\": 69, \"tools\": 329, \"journal\": 2}"
+    },
+    {
+      "name": "six-modules-match-their-schemas",
+      "command": "python .ai/machine/organize.py --check",
+      "proves": "Canon and the five existing modules all match their schemas, including the write-here intake and this plan once it has results.",
+      "expected": "exit 0 and modules 6",
+      "result": "{\"modules\": 6, \"lines\": 578, \"documents\": 6, \"events\": 178, \"messages\": 69, \"tools\": 329, \"journal\": 2}"
+    }
+  ],
+  "status": "implemented"
+}

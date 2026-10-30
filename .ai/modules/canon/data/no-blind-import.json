@@ -1,0 +1,8 @@
+{
+  "id": "no-blind-import",
+  "source": "Upstream mail trees, vendored diffs, reference servers, and a git pull of foreign history.",
+  "behavior": "Wanted behavior is written in this repository against our stores, feature flags, and context modules.",
+  "owner": "The crate or .ai module that already owns that behavior. A new concern is a new module folder.",
+  "spec": "Name the owner, the type or schema, and a proof of the whole behavior before any foreign diff is copied in.",
+  "decision": "write-here"
+}

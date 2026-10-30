@@ -1,8 +1,8 @@
 {
-  "context": "The .ai tree had been split by file type. The goal is one folder per context.",
-  "objective": "Keep chats, journal, plans, roadmap, and COSTAR as separate modules discovered from module.json.",
-  "style": "One folder containing the skill, schema, and data.",
+  "context": "The maintainer said foreign code is never pulled in blindly on this build.",
+  "objective": "Write wanted behavior here, in the module or crate that owns it, against a spec.",
+  "style": "One context folder with a skill, a schema, and a decision record.",
   "tone": "Direct.",
   "audience": "The next coding agent and the maintainer.",
-  "response": "Five modules under .ai/modules, each with SKILL.md, schema/, and data/, accepted by organize.py --check."
+  "response": "A canon module the checker discovers, and organize.py --check exiting 0."
 }

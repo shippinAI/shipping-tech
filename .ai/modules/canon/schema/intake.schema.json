@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "intake.schema.json",
+  "title": "code intake",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "source", "behavior", "owner", "spec", "decision"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "source": {"type": "string", "minLength": 1},
+    "behavior": {"type": "string", "minLength": 1},
+    "owner": {"type": "string", "minLength": 1},
+    "spec": {"type": "string", "minLength": 1},
+    "decision": {"type": "string", "enum": ["write-here", "reject"]}
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "id": "canon",
+  "json": [
+    {"glob": "data/*.json", "schema": "schema/intake.schema.json"}
+  ]
+}
