@@ -1,0 +1,10 @@
+{
+  "id": "chats",
+  "index": "data/index.json",
+  "jsonl": [
+    {"glob": "data/sessions/*/events.jsonl", "schema": "schema/session-event.schema.json"},
+    {"glob": "data/sessions/*/messages.jsonl", "schema": "schema/agent-message.schema.json"},
+    {"glob": "data/sessions/*/tools.jsonl", "schema": "schema/tool-event.schema.json"},
+    {"glob": "data/sessions/*/reasoning.jsonl", "schema": "schema/reasoning.schema.json"}
+  ]
+}

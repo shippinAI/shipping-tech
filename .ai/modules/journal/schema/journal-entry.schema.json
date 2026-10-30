@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "journal-entry.schema.json",
+  "title": "journal_entry",
+  "description": "Wardenclyffe working journal (surreal/schema/002_journal.surql). One append-only self-report. Not a copy of the chat.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["entry_id", "project_key", "session_key", "agent_id", "entry_type", "content", "source", "created_at"],
+  "properties": {
+    "entry_id": {"type": "string", "minLength": 8},
+    "project_key": {"type": "string", "minLength": 1},
+    "session_key": {"type": "string", "minLength": 1},
+    "agent_id": {"type": "string", "minLength": 1},
+    "turn_id": {"type": ["string", "null"]},
+    "entry_type": {
+      "type": "string",
+      "enum": [
+        "hypothesis_formed",
+        "command_run",
+        "result_observed",
+        "hypothesis_invalidated",
+        "hypothesis_confirmed",
+        "gotcha_hit",
+        "decision_made",
+        "blocked_external",
+        "user_correction",
+        "subagent_spawn",
+        "subagent_return"
+      ]
+    },
+    "content": {"type": "string", "minLength": 1},
+    "related_tool": {"type": ["string", "null"]},
+    "related_args": {"type": "object"},
+    "related_result": {"type": "object"},
+    "invalidates": {"type": ["string", "null"]},
+    "confirms": {"type": ["string", "null"]},
+    "source_event": {"type": ["string", "null"]},
+    "source": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "minLength": 20}
+  }
+}

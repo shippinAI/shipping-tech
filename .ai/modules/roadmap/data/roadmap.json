@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "product": "shippin.tech",
+  "objectives": [
+    {
+      "id": "engine",
+      "statement": "This repository is the Rust mail and groupware engine: SMTP, IMAP, JMAP, POP3, ManageSieve, CalDAV, and CardDAV.",
+      "source": ".cursor/rules/product-boundaries.mdc"
+    },
+    {
+      "id": "one-binary",
+      "statement": "shippin.cloud is later paid hosting of the same server, not a second mail engine.",
+      "source": ".cursor/rules/product-boundaries.mdc"
+    },
+    {
+      "id": "rocks-and-enterprise",
+      "statement": "The default build keeps rocks and enterprise. The scale build adds FoundationDB, S3, Redis, and NATS and still includes rocks.",
+      "source": "crates/main/Cargo.toml"
+    },
+    {
+      "id": "license-open",
+      "statement": "The license is still deciding, between a true open-source license and the Business Source License. Do not mark the project AGPL.",
+      "source": ".cursor/rules/license-and-scale.mdc"
+    }
+  ],
+  "phases": [
+    {
+      "id": "build",
+      "statement": "cargo build -p shippin-tech finishes with rocks and enterprise enabled.",
+      "status": "in_progress",
+      "exit_proof": "cargo build -p shippin-tech --config \"build.rustc-wrapper=''\" exits 0 and the executable exists.",
+      "depends_on": []
+    },
+    {
+      "id": "one-node-mailbox",
+      "statement": "One Rocks node, one domain, one mailbox, SMTP in and IMAP out.",
+      "status": "not_started",
+      "exit_proof": "A message accepted by SMTP on that node is fetched over IMAP from the same mailbox.",
+      "depends_on": ["build"]
+    },
+    {
+      "id": "two-node-shared",
+      "statement": "Two nodes with different node ids share FoundationDB, one S3 bucket, and NATS or Redis. A mailbox written on one is read on the other. Rocks stays in the build for the one-node case.",
+      "status": "not_started",
+      "exit_proof": "The same message is fetched from the second node after it was appended on the first.",
+      "depends_on": ["one-node-mailbox"]
+    },
+    {
+      "id": "shippin-cloud",
+      "statement": "shippin.cloud hosts that same binary.",
+      "status": "not_started",
+      "exit_proof": "The hosted process is the binary built from this repository, with the same feature set as the two-node proof.",
+      "depends_on": ["two-node-shared"]
+    },
+    {
+      "id": "license-choice",
+      "statement": "The maintainer writes the license choice into Cargo.toml and a LICENSE file.",
+      "status": "not_started",
+      "exit_proof": "Cargo.toml license is no longer deciding, and a LICENSE file matches that value.",
+      "depends_on": []
+    },
+    {
+      "id": "zoho-client",
+      "statement": "Map the hosted-mail experience onto JMAP, CalDAV, and the directory that already exist.",
+      "status": "not_started",
+      "exit_proof": "A client uses the existing JMAP, CalDAV, and directory surfaces. No second mail server is added.",
+      "depends_on": ["two-node-shared"]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "id": "costar",
+  "json": [
+    {"glob": "data/reading.json", "schema": "schema/reading.schema.json"}
+  ]
+}

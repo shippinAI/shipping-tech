@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "id": "2026-10-29-context-modules",
+  "title": "Split .ai into context-bound plug-in modules",
+  "costar": {
+    "context": "Chats, schemas, skills, plans, and the roadmap were split by file type under .ai/schema, .ai/skills, and .ai/data.",
+    "objective": "Make each context one folder that carries its skill, schema, and data, discovered from module.json with no central registry.",
+    "style": "One folder per context, shared checker only.",
+    "tone": "Direct.",
+    "audience": "The next coding agent and the maintainer.",
+    "response": "Five modules under .ai/modules, a self-test that a temporary sixth module is picked up, and organize.py --check exiting 0."
+  },
+  "sources": [
+    {"kind": "code", "ref": ".ai/PROTOCOL.md"},
+    {"kind": "code", "ref": ".ai/machine/organize.py"},
+    {"kind": "code", "ref": ".ai/machine/copy_chats.py"},
+    {"kind": "code", "ref": "D:\\localdev\\archive\\wardenclyffe\\surreal\\schema\\002_journal.surql"}
+  ],
+  "concerns": [
+    "A checker with the module list hardcoded would still force an edit to add a context. The self-test plugs in _probe and then deletes it.",
+    "Cursor skill junctions under .cursor/skills are local. The canonical skill is the SKILL.md inside the module.",
+    "This move does not finish the engine build and does not add a license validator."
+  ],
+  "context": "The previous operating plan filed chats into one data tree. The user asked for context-bound, plug-and-play folders.",
+  "current_state": "modules/chats, journal, plans, roadmap, and costar each have module.json and SKILL.md. The checker walks .ai/modules.",
+  "target_design": "Adding a context is adding .ai/modules/<id>/ with module.json and SKILL.md. The shared machine does not gain a line for that id.",
+  "changes": [
+    "Move schemas and data into the module that owns them.",
+    "Teach organize.py to discover module.json.",
+    "Point copy_chats.py at modules/chats/data.",
+    "Relink .cursor/skills at the module folders."
+  ],
+  "boundaries": [
+    "Do not mint an enterprise license key.",
+    "Do not change Cargo.toml features.",
+    "Do not mark the build phase done.",
+    "Do not merge the journal back into the chat transcript."
+  ],
+  "verification": [
+    {
+      "name": "temporary-module-is-discovered",
+      "command": "python .ai/machine/organize.py --self-test",
+      "proves": "A folder added under .ai/modules is checked without editing the checker, a bad journal type is rejected, and the filed chats still match their schemas.",
+      "expected": "exit 0, ok true, modules 6",
+      "result": "{\"ok\": true, \"modules\": 6, \"documents\": 3, \"events\": 166, \"messages\": 65, \"tools\": 302, \"journal\": 1}"
+    },
+    {
+      "name": "unchanged-sync-and-five-modules",
+      "command": "python .ai/machine/copy_chats.py --sync && python .ai/machine/organize.py --check",
+      "proves": "Unchanged transcripts add no events, and the real tree is exactly the five modules.",
+      "expected": "sync events 0 and skipped 4; check modules 5",
+      "result": "sync {\"files\": 4, \"events\": 0, \"messages\": 0, \"tools\": 0, \"reasoning\": 0, \"skipped\": 4}; check {\"modules\": 5, \"lines\": 577, \"documents\": 2, \"events\": 178, \"messages\": 69, \"tools\": 329, \"journal\": 1}"
+    }
+  ],
+  "status": "implemented"
+}

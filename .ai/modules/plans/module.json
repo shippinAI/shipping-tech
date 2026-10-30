@@ -1,0 +1,6 @@
+{
+  "id": "plans",
+  "json": [
+    {"glob": "data/*.json", "schema": "schema/plan.schema.json", "implemented_needs_result": true}
+  ]
+}

@@ -7,4 +7,6 @@ run.sh
 !.gitattributes
 !.github
 !.cargo
+!.ai/
+!.ai/**
 CLAUDE.md

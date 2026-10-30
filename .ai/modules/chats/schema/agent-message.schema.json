@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "agent-message.schema.json",
+  "title": "agent_message",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["project_key", "session_key", "event_id", "role", "content", "created_at"],
+  "properties": {
+    "project_key": {"type": "string", "minLength": 1},
+    "session_key": {"type": "string", "minLength": 1},
+    "event_id": {"type": "string", "minLength": 8},
+    "role": {"type": "string", "enum": ["user", "assistant", "system", "tool", "unknown"]},
+    "content": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "minLength": 20}
+  }
+}

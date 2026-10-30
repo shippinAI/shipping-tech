@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "id": "2026-10-29-ai-operating",
+  "title": "File chats, journal, plans, and the roadmap under .ai",
+  "costar": {
+    "context": "The repo on D:\\localdev\\mail-shippin\\shippin-tech already copies Cursor transcripts with .ai/machine/copy_chats.py. Skills, the journal schema, plans, and the roadmap were not there yet.",
+    "objective": "Add tool-agnostic skills and a checker so chats, journal entries, plans, and the roadmap stay valid as the tree grows.",
+    "style": "Short skills plus a schema-backed program.",
+    "tone": "Direct.",
+    "audience": "The next coding agent and the maintainer.",
+    "response": "Canonical files under .ai, Cursor junctions to those skills, and organize.py --check exiting 0."
+  },
+  "sources": [
+    {"kind": "code", "ref": "D:\\localdev\\archive\\wardenclyffe\\surreal\\schema\\002_journal.surql"},
+    {"kind": "code", "ref": "D:\\localdev\\archive\\wardenclyffe\\.cursor\\hooks.json"},
+    {"kind": "code", "ref": ".cursor/rules/product-boundaries.mdc"},
+    {"kind": "code", "ref": ".cursor/rules/license-and-scale.mdc"},
+    {"kind": "code", "ref": "crates/main/Cargo.toml"},
+    {"kind": "web", "ref": "https://aws.amazon.com/blogs/machine-learning/implementing-advanced-prompt-engineering-with-amazon-bedrock/"}
+  ],
+  "concerns": [
+    "The enterprise license validator source is not in this tree. LicenseKey::new stays fail-closed. This plan does not invent a key checker.",
+    "A cargo build with full debuginfo ran out of memory on this machine. The roadmap phase build stays in_progress until a fresh build exits 0.",
+    "Hooks fire only when Cursor has this D: folder open. The Downloads copy has no .ai tree.",
+    "A check that only validated one fixture would miss a bad line already filed in a session. The check walks every jsonl line."
+  ],
+  "context": "Wardenclyffe already separates session_event, agent_message, tool_event, and journal_entry. This repo stores those as files because SurrealDB is not running here.",
+  "current_state": "copy_chats.py has filed the Cursor transcripts. organize.py rejects a journal entry whose entry_type is not in the Wardenclyffe list and then validates every filed line.",
+  "target_design": "Skills live once under .ai/skills. .cursor/skills junctions point at them. Journal lines, plans, and the roadmap are accepted only when they match .ai/schema. New transcript bytes append; unchanged files add nothing.",
+  "changes": [
+    "Add .ai/schema for journal_entry, session_event, agent_message, tool_event, reasoning, plan, and roadmap.",
+    "Add .ai/machine/organize.py.",
+    "Add the three skills and the roadmap.",
+    "Point AGENTS.md and the Cursor operating rule at those files."
+  ],
+  "boundaries": [
+    "Do not mint or accept an enterprise license key.",
+    "Do not change Cargo.toml features.",
+    "Do not treat a journal entry as a copy of the chat.",
+    "Do not mark the build phase done."
+  ],
+  "verification": [
+    {
+      "name": "schema-rejects-bad-journal-and-accepts-filed-chats",
+      "command": "python .ai/machine/organize.py --self-test",
+      "proves": "An unknown journal type is rejected, and every already filed event, message, and tool line matches its schema.",
+      "expected": "exit 0 and ok true",
+      "result": "{\"ok\": true, \"events\": 147, \"messages\": 57, \"tools\": 264, \"reasoning\": 0, \"journal\": 0, \"plans\": 0}"
+    },
+    {
+      "name": "unchanged-transcript-adds-nothing",
+      "command": "python .ai/machine/copy_chats.py --sync",
+      "proves": "A second sync of unchanged transcripts writes no new events.",
+      "expected": "skipped equals files and events is 0",
+      "result": "{\"files\": 4, \"events\": 0, \"messages\": 0, \"tools\": 0, \"reasoning\": 0, \"skipped\": 4}"
+    }
+  ],
+  "status": "implemented"
+}

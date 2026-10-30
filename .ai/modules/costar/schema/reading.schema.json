@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "reading.schema.json",
+  "title": "COSTAR reading",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["context", "objective", "style", "tone", "audience", "response"],
+  "properties": {
+    "context": {"type": "string", "minLength": 1},
+    "objective": {"type": "string", "minLength": 1},
+    "style": {"type": "string", "minLength": 1},
+    "tone": {"type": "string", "minLength": 1},
+    "audience": {"type": "string", "minLength": 1},
+    "response": {"type": "string", "minLength": 1}
+  }
+}

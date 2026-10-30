@@ -1,0 +1,6 @@
+{
+  "id": "journal",
+  "jsonl": [
+    {"glob": "data/journal.jsonl", "schema": "schema/journal-entry.schema.json"}
+  ]
+}

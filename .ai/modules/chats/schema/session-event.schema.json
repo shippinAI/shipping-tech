@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "session-event.schema.json",
+  "title": "session_event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "project_key", "session_key", "hook_event", "event_kind", "source", "payload", "redactions", "captured_at", "received_at"],
+  "properties": {
+    "event_id": {"type": "string", "minLength": 8},
+    "project_key": {"type": "string", "minLength": 1},
+    "session_key": {"type": "string", "minLength": 1},
+    "hook_event": {"type": "string", "minLength": 1},
+    "event_kind": {"type": "string", "minLength": 1},
+    "source": {"type": "string", "minLength": 1},
+    "payload": {"type": "object"},
+    "redactions": {"type": "array", "items": {"type": "string"}},
+    "captured_at": {"type": "string", "minLength": 20},
+    "received_at": {"type": "string", "minLength": 20}
+  }
+}

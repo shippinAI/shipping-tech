@@ -1,0 +1,6 @@
+{
+  "id": "roadmap",
+  "json": [
+    {"glob": "data/roadmap.json", "schema": "schema/roadmap.schema.json"}
+  ]
+}

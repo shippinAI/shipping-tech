@@ -35,6 +35,10 @@ members = [
 ]
 default-members = ["crates/main"]
 
+# Full debuginfo makes rustc run out of memory while compiling the server binary.
+[profile.dev.package.shippin-tech]
+debug = 0
+
 [workspace.lints.rust]
 
 [workspace.lints.clippy]

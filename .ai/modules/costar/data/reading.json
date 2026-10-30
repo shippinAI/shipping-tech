@@ -1,0 +1,8 @@
+{
+  "context": "The .ai tree had been split by file type. The goal is one folder per context.",
+  "objective": "Keep chats, journal, plans, roadmap, and COSTAR as separate modules discovered from module.json.",
+  "style": "One folder containing the skill, schema, and data.",
+  "tone": "Direct.",
+  "audience": "The next coding agent and the maintainer.",
+  "response": "Five modules under .ai/modules, each with SKILL.md, schema/, and data/, accepted by organize.py --check."
+}
