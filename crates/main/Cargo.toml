@@ -6,7 +6,7 @@ repository = "https://github.com/shippinAI/shippin-tech"
 homepage = "https://shippin.tech"
 keywords = ["imap", "jmap", "smtp", "email", "mail", "webdav", "server"]
 categories = ["email"]
-license = "deciding"
+license = "BUSL-1.1"
 version = "0.1.0"
 edition = "2024"
 

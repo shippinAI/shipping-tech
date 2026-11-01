@@ -1,5 +1,5 @@
 ---
-description: shippin.tech product boundary. Engine first. Zoho client comes later.
+description: shippin.tech product boundary. Zoho client map is current work. Docs wait.
 alwaysApply: true
 ---
 
@@ -11,17 +11,18 @@ This repository is the Rust mail and groupware engine: SMTP, IMAP, JMAP, POP3, M
 
 ## Current work
 
-Scale the engine. Leave the Zoho-style product for a later pass.
+Map the hosted-mail experience onto JMAP, CalDAV, and the directory that already exist (roadmap phase `zoho-client`). The open scale path (FoundationDB + S3 + NATS or Redis) is the agreed multi-node default.
 
 Do not add, in this phase:
 
-- a webmail, calendar, or contacts client
-- an admin UI
 - a Go control plane
 - a second mail server, including Mox, Postfix, or Dovecot
+- a collaborative Docs editor (Google Docs / Zoho Writer style)
 
 Mox is a product reference only. Do not port it or run it beside this server.
 
-## When the Zoho pass starts
+Webmail, calendar UI, contacts UI, and admin UI belong to the Zoho client map and may be added only as clients of the existing JMAP, CalDAV, CardDAV, and directory surfaces.
 
-Map the hosted-mail experience onto JMAP, CalDAV, and the directory that already exist. Do not start that map until the open scale path below is the agreed default.
+## Docs later
+
+Collaborative document editing stays out of scope until mail, calendar, contacts, and admin clients exist on those surfaces. File storage via JMAP/WebDAV is not Docs.

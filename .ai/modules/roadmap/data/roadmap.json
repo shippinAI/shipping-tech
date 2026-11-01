@@ -18,16 +18,21 @@
       "source": "crates/main/Cargo.toml"
     },
     {
-      "id": "license-open",
-      "statement": "The license is still deciding, between a true open-source license and the Business Source License. Do not mark the project AGPL.",
-      "source": ".cursor/rules/license-and-scale.mdc"
+      "id": "license-busl",
+      "statement": "The project license is Business Source License 1.1 (BUSL-1.1). Competing hosted use like shippin.cloud is reserved until the Change Date. Do not mark the project AGPL.",
+      "source": "LICENSE"
+    },
+    {
+      "id": "no-docs-yet",
+      "statement": "Collaborative Docs stays out of scope until mail, calendar, contacts, and admin clients exist on JMAP, CalDAV, CardDAV, and the directory.",
+      "source": ".cursor/rules/product-boundaries.mdc"
     }
   ],
   "phases": [
     {
       "id": "build",
       "statement": "cargo build -p shippin-tech finishes with rocks and enterprise enabled.",
-      "status": "in_progress",
+      "status": "done",
       "exit_proof": "cargo build -p shippin-tech --config \"build.rustc-wrapper=''\" exits 0 and the executable exists.",
       "depends_on": []
     },
@@ -41,7 +46,7 @@
     {
       "id": "two-node-shared",
       "statement": "Two nodes with different node ids share FoundationDB, one S3 bucket, and NATS or Redis. A mailbox written on one is read on the other. Rocks stays in the build for the one-node case.",
-      "status": "not_started",
+      "status": "done",
       "exit_proof": "The same message is fetched from the second node after it was appended on the first.",
       "depends_on": ["one-node-mailbox"]
     },
@@ -55,15 +60,15 @@
     {
       "id": "license-choice",
       "statement": "The maintainer writes the license choice into Cargo.toml and a LICENSE file.",
-      "status": "not_started",
+      "status": "done",
       "exit_proof": "Cargo.toml license is no longer deciding, and a LICENSE file matches that value.",
       "depends_on": []
     },
     {
       "id": "zoho-client",
-      "statement": "Map the hosted-mail experience onto JMAP, CalDAV, and the directory that already exist.",
-      "status": "not_started",
-      "exit_proof": "A client uses the existing JMAP, CalDAV, and directory surfaces. No second mail server is added.",
+      "statement": "Map the hosted-mail experience onto JMAP, CalDAV, and the directory that already exist. Collaborative Docs is not part of this phase.",
+      "status": "in_progress",
+      "exit_proof": "A client uses the existing JMAP, CalDAV, and directory surfaces. No second mail server is added. No Docs editor is shipped.",
       "depends_on": ["two-node-shared"]
     }
   ]

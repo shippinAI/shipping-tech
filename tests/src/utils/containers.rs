@@ -62,6 +62,10 @@ pdnsutil set-meta shippin.tech.test TSIG-ALLOW-DNSUPDATE shippin.tech-update-key
 pdnsutil set-meta shippin.tech.test ALLOW-DNSUPDATE-FROM '0.0.0.0/0'
 "#;
 
+pub fn foundationdb_cluster_file() -> &'static str {
+    "/tmp/shippin.tech-test-fdb.cluster"
+}
+
 pub async fn ensure_foundationdb() {
     let container = FOUNDATIONDB
         .get_or_init(|| async {
@@ -83,7 +87,7 @@ pub async fn ensure_foundationdb() {
             .await
             .contains("The database is available")
         {
-            return;
+            break;
         }
         let created = fdbcli(container, "configure new single memory").await;
         if created.contains("Database created") || created.contains("Already exists") {
@@ -94,6 +98,25 @@ pub async fn ensure_foundationdb() {
         }
         tokio::time::sleep(Duration::from_secs(2)).await;
     }
+
+    // Host processes talk to the published port, not the container bridge IP.
+    let mut result = container
+        .exec(
+            ExecCommand::new(["cat", "/var/fdb/fdb.cluster"])
+                .with_cmd_ready_condition(CmdWaitFor::exit()),
+        )
+        .await
+        .expect("Failed to read FoundationDB cluster file");
+    let raw = String::from_utf8_lossy(&result.stdout_to_vec().await.unwrap_or_default())
+        .trim()
+        .to_string();
+    let host_cluster = raw
+        .rsplit_once('@')
+        .map(|(desc, _)| format!("{desc}@127.0.0.1:4500"))
+        .unwrap_or(raw);
+    std::fs::write(foundationdb_cluster_file(), format!("{host_cluster}\n")).unwrap_or_else(|err| {
+        panic!("Failed to write {}: {err}", foundationdb_cluster_file())
+    });
 }
 
 async fn fdbcli(container: &ContainerAsync<GenericImage>, command: &str) -> String {
@@ -216,7 +239,7 @@ pub async fn ensure_nats() {
 pub async fn ensure_minio() {
     MINIO
         .get_or_init(|| async {
-            GenericImage::new("minio/minio", "latest")
+            GenericImage::new("elestio/minio", "latest")
                 .with_env_var("MINIO_ROOT_USER", "minioadmin")
                 .with_env_var("MINIO_ROOT_PASSWORD", "minioadmin")
                 .with_cmd(["server", "/data", "--console-address", ":9001"])
@@ -284,7 +307,7 @@ pub async fn ensure_keycloak() {
                 .with_cmd(["start-dev", "--import-realm"])
                 .with_copy_to(
                     "/opt/keycloak/data/import/shippin.tech-realm.json",
-                    include_bytes!("../../docker/keycloak/shippin.tech-realm.json").to_vec(),
+                    include_bytes!("../../docker/keycloak/shippin-tech-realm.json").to_vec(),
                 )
                 .with_mapped_port(9080, 9080.tcp())
                 .with_startup_timeout(READY_TIMEOUT)
