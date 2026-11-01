@@ -84,8 +84,11 @@ pub async fn build_data_store(typ: &str, path: &str) -> DataStore {
             ..Default::default()
         }),
         DataStoreType::FoundationDb => {
-            crate::utils::containers::ensure_foundationdb().await;
-            DataStore::FoundationDb(FoundationDbStore::default())
+            let cluster_file = crate::utils::containers::ensure_foundationdb().await;
+            DataStore::FoundationDb(FoundationDbStore {
+                cluster_file: Some(cluster_file),
+                ..Default::default()
+            })
         }
         DataStoreType::PostgreSql => {
             crate::utils::containers::ensure_postgres().await;

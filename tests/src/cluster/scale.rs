@@ -1,7 +1,7 @@
 use crate::{
     imap::append::assert_append_message,
     utils::{
-        imap::{ImapConnection, Type},
+        imap::{AssertResult, ImapConnection, Type},
         server::TestServerBuilder,
     },
 };
@@ -26,12 +26,12 @@ use types::id::Id;
 const BODY: &str = "scale-body-from-node-a";
 
 #[tokio::test(flavor = "multi_thread")]
-#[ignore = "STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes"]
+#[ignore = "RUST_MIN_STACK=33554432 STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes"]
 pub async fn scale_two_nodes() {
     if std::env::var("STORE").ok().as_deref() != Some("FoundationDb") {
         panic!(
             "Set STORE=FoundationDb so both nodes share one cluster file. \
-             Example: STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes"
+             Example: RUST_MIN_STACK=33554432 STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes"
         );
     }
 

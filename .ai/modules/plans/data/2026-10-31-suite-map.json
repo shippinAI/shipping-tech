@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "id": "2026-10-31-suite-map",
+  "title": "Spell out the suite and require a multi-tenant deployable image",
+  "costar": {
+    "context": "The maintainer said the deployable product should be multi-tenant, able to connect to other products, and have the groundwork to scale. Zoho and Google Docs capabilities were not written down.",
+    "objective": "Record the suite map and make the next image proof two isolated tenants with JMAP, CalDAV, and CardDAV up.",
+    "style": "A short map in the product rule and three roadmap objectives.",
+    "tone": "Direct.",
+    "audience": "The next coding agent and the maintainer.",
+    "response": "Mail, calendar, contacts, and tenants stay in this engine. Docs, sheets, slides, drive, chat, and meetings are later products that connect."
+  },
+  "sources": [
+    {"kind": "code", "ref": "crates/common/src/auth/mod.rs"},
+    {"kind": "code", "ref": ".cursor/rules/product-boundaries.mdc"},
+    {"kind": "code", "ref": ".ai/modules/roadmap/data/roadmap.json"},
+    {"kind": "web", "ref": "https://www.zoho.com/workplace/"},
+    {"kind": "web", "ref": "https://www.zoho.com/workplace/pricing.html"},
+    {"kind": "web", "ref": "https://www.zoho.com/developer/rest-apis/api-directory.html"},
+    {"kind": "web", "ref": "https://developers.google.com/workspace/products"}
+  ],
+  "concerns": [
+    "Building Writer or Google Docs inside this repository would be a second product, not the mail engine.",
+    "The tenant types already exist. The deployable proof still has to show two tenants on the scale image, which is not started.",
+    "Office Integrator keeps files in the caller's storage. That is a connection, not a reason to add an editor in this phase."
+  ],
+  "context": "The next phase was a two-node mailbox image. The maintainer wants that image to be multi-tenant, connectable, and ready to grow, with the Zoho and Google suite spelled out.",
+  "current_state": "TenantCache, DomainCache.id_tenant, and AccountCache.id_tenant already exist. The roadmap did not require two tenants, and no file named the Zoho or Google Docs products.",
+  "target_design": "The deployable image hosts two tenants on the shared FoundationDB, S3, and NATS layout and serves JMAP, CalDAV, and CardDAV. Documents, spreadsheets, slides, drive, chat, and meetings stay outside this repository until a later product connects.",
+  "changes": [
+    "Add the suite map to .cursor/rules/product-boundaries.mdc.",
+    "Add multi-tenant, connect, and scale-groundwork objectives to the roadmap.",
+    "Change the deployable-product exit proof to two isolated tenants and the three connection protocols.",
+    "Restate the zoho-client phase as a map onto those protocols."
+  ],
+  "boundaries": [
+    "Do not build a document editor, chat, meetings, or a drive product.",
+    "Do not choose a license or start shippin.cloud hosting.",
+    "Do not add a second mail server.",
+    "Do not remove rocks from the one-node build."
+  ],
+  "verification": [
+    {
+      "name": "suite-and-tenant-proof",
+      "command": "python -c \"import json; r=json.load(open('.ai/modules/roadmap/data/roadmap.json')); o={x['id']:x for x in r['objectives']}; p={x['id']:x for x in r['phases']}; assert 'tenant' in o['multi-tenant']['statement']; assert 'JMAP' in o['connect']['statement']; assert 'FoundationDB' in o['scale-groundwork']['statement']; assert 'tenant B' in p['deployable-product']['exit_proof']; assert 'CardDAV' in p['zoho-client']['statement']\"",
+      "proves": "The roadmap now requires a multi-tenant image, names the connection surfaces, and keeps the scale layout. A mail-only single-tenant proof no longer matches the exit text.",
+      "expected": "exit 0",
+      "result": "suite-ok"
+    },
+    {
+      "name": "module-check",
+      "command": "python .ai/machine/organize.py --check",
+      "proves": "The roadmap and this plan match their schemas.",
+      "expected": "exit 0",
+      "result": "{\"modules\": 6, \"lines\": 581, \"documents\": 9, \"events\": 178, \"messages\": 69, \"tools\": 329, \"journal\": 5}"
+    }
+  ],
+  "status": "implemented"
+}

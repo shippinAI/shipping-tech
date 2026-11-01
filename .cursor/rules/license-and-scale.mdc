@@ -9,6 +9,8 @@ alwaysApply: true
 
 Do not mark this project AGPL. The maintainer is choosing between a true open-source license and the Business Source License (BSL).
 
+The choice is last. First the scale image runs as its own deployable product. Then shippin.cloud hosts that same image. Only then does `Cargo.toml` and a `LICENSE` file record the choice.
+
 BSL is source-available. It can limit offering the software as a competing hosted service until a published conversion date, then it becomes a stated open license. A true open-source license cannot reserve commercial hosting for shippin.cloud.
 
 Until that choice is written into `Cargo.toml` (`license` is still `"deciding"`) and a `LICENSE` file:

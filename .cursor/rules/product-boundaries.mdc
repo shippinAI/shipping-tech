@@ -11,17 +11,42 @@ This repository is the Rust mail and groupware engine: SMTP, IMAP, JMAP, POP3, M
 
 ## Current work
 
-Scale the engine. Leave the Zoho-style product for a later pass.
+Make the scale image a deployable multi-tenant product. `Dockerfile.fdb`, started from `resources/scale`, runs two nodes on FoundationDB, one S3 bucket, and NATS. Two tenants share that deployment. A mailbox written for one tenant on the first node is read for that same tenant on the second node, and the other tenant cannot read it. The same process serves JMAP, CalDAV, and CardDAV so another product can connect. shippin.cloud later hosts that same image. The license choice is written only after that.
+
+The engine already has this groundwork in `crates/common/src/auth/mod.rs`: a tenant has roles, quotas, and permissions; a domain and an account each carry `id_tenant`.
 
 Do not add, in this phase:
 
+- a license choice in `Cargo.toml` or a `LICENSE` file
+- shippin.cloud hosting
 - a webmail, calendar, or contacts client
+- a document, spreadsheet, or slide editor
+- chat, meetings, or a drive product
 - an admin UI
 - a Go control plane
 - a second mail server, including Mox, Postfix, or Dovecot
 
 Mox is a product reference only. Do not port it or run it beside this server.
 
+## Suite map
+
+These capabilities were not written in this repo. Sources: [Zoho Workplace](https://www.zoho.com/workplace/) and its [edition list](https://www.zoho.com/workplace/pricing.html), the [Zoho API directory](https://www.zoho.com/developer/rest-apis/api-directory.html), and [Google Workspace developer products](https://developers.google.com/workspace/products).
+
+This engine already covers the mail, calendar, contacts, and directory row. Other products connect to those surfaces. They are not a second mail server and they are not built inside this phase.
+
+| Suite capability | Zoho | Google | This repository |
+| --- | --- | --- | --- |
+| Mail | Mail | Gmail | SMTP, IMAP, JMAP, POP3, ManageSieve |
+| Calendar | Calendar | Calendar | CalDAV |
+| Contacts | Contacts, Card Scanner | People API | CardDAV |
+| Tenants, domains, users, quotas | Directory, Mail Admin | Admin SDK Directory API | `TenantCache`, domains, accounts, SCIM flag, OAuth |
+| Files | WorkDrive | Drive | Later product, connected over the existing store and HTTP surfaces |
+| Documents, spreadsheets, slides | Writer, Sheet, Show | Docs, Sheets, Slides | Later products. Zoho Office Integrator embeds those editors while files stay in the caller's storage |
+| Chat | Cliq | Chat | Later product |
+| Meetings | Meeting | Meet | Later product |
+| Tasks | ToDo | Tasks | Later product on the groupware data that already exists |
+| Forms, sites, keep, vault, social | Vault, Connect | Forms, Sites, Keep, Vault | Separate products |
+
 ## When the Zoho pass starts
 
-Map the hosted-mail experience onto JMAP, CalDAV, and the directory that already exist. Do not start that map until the open scale path below is the agreed default.
+Map the hosted experience onto JMAP, CalDAV, CardDAV, and the directory that already exist. Documents, spreadsheets, slides, drive, chat, and meetings stay separate products that connect to this server. Do not start that map until shippin.cloud hosts the deployable image.

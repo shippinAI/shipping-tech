@@ -279,6 +279,53 @@ def sync_transcripts() -> dict[str, int]:
     return totals
 
 
+HOOK_ENVELOPE = {
+    "conversation_id",
+    "generation_id",
+    "model",
+    "model_id",
+    "model_params",
+    "hook_event_name",
+    "cursor_version",
+    "workspace_roots",
+    "user_email",
+    "transcript_path",
+    "cwd",
+}
+
+
+def file_reasoning(base: Path, record: dict[str, Any], kind: str, content: str) -> None:
+    if not content.strip():
+        return
+    file_line(
+        base,
+        "reasoning.jsonl",
+        {
+            "project_key": PROJECT_KEY,
+            "session_key": record["session_key"],
+            "event_id": record["event_id"],
+            "kind": kind,
+            "content": content,
+            "created_at": record["captured_at"],
+        },
+    )
+
+
+def private_reasoning(event_name: str, payload: dict[str, Any]) -> tuple[str, str] | None:
+    """Map the private hook onto the existing reasoning record. Text is not trimmed."""
+    if event_name == "afterAgentThought":
+        text = payload.get("text")
+        if isinstance(text, str) and text.strip():
+            return "thought", text
+        return None
+    if event_name == "preCompact":
+        body = {key: value for key, value in payload.items() if key not in HOOK_ENVELOPE}
+        if not body:
+            return None
+        return "compaction", json.dumps(body, ensure_ascii=False, sort_keys=True)
+    return None
+
+
 def spool_and_file(event_name: str, payload: dict[str, Any]) -> None:
     session_key = ""
     for key in ("conversation_id", "session_id", "composer_id", "generation_id"):
@@ -299,6 +346,10 @@ def spool_and_file(event_name: str, payload: dict[str, Any]) -> None:
     append_jsonl(DATA / "spool" / "events.jsonl", record)
     base = session_dir(session_key)
     file_line(base, "events.jsonl", record)
+    stored = record["payload"] if isinstance(record.get("payload"), dict) else {}
+    private = private_reasoning(event_name, stored)
+    if private is not None:
+        file_reasoning(base, record, private[0], private[1])
     if event_name in {"beforeSubmitPrompt", "afterAgentResponse"}:
         text = payload.get("prompt") or payload.get("text") or payload.get("response")
         if isinstance(text, str) and text.strip():
@@ -336,7 +387,37 @@ def self_test() -> None:
             raise SystemExit("message was not filed")
         if not (base / "events.jsonl").is_file():
             raise SystemExit("event was not filed")
-        print(json.dumps({"ok": True, "data": str(DATA)}))
+        secret = "sk-abcdefghijklmnopqrstuvwxyz0123456789"
+        marker = "PRIVATE-END " + " ".join(["word"] * 800)
+        spool_and_file(
+            "afterAgentThought",
+            {
+                "conversation_id": "private-test",
+                "text": f"start {secret} middle {marker}",
+                "duration_ms": 5000,
+            },
+        )
+        thought = json.loads((session_dir("private-test") / "reasoning.jsonl").read_text(encoding="utf-8"))
+        if thought["kind"] != "thought" or marker not in thought["content"] or secret in thought["content"]:
+            raise SystemExit("private thought was not captured in full")
+        spool_and_file(
+            "preCompact",
+            {
+                "conversation_id": "private-test",
+                "trigger": "auto",
+                "context_usage_percent": 85,
+                "context_tokens": 120000,
+                "context_window_size": 128000,
+                "message_count": 45,
+                "messages_to_compact": 30,
+                "is_first_compaction": True,
+            },
+        )
+        lines = (session_dir("private-test") / "reasoning.jsonl").read_text(encoding="utf-8").splitlines()
+        compact = json.loads(lines[-1])
+        if compact["kind"] != "compaction" or '"messages_to_compact": 30' not in compact["content"]:
+            raise SystemExit("compaction was not captured")
+        print(json.dumps({"ok": True, "data": str(DATA), "thought_chars": len(thought["content"])}))
     finally:
         DATA = original
 

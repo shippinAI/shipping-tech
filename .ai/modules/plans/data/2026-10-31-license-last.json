@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "id": "2026-10-31-license-last",
+  "title": "License waits until the deployable image is hosted",
+  "costar": {
+    "context": "The maintainer said the license is the last thing, once shippin.tech is its own deployable product that can be pulled into shippin.cloud.",
+    "objective": "Record that order on the roadmap so the next phase is the deployable image, then hosting, and the license only after that.",
+    "style": "A roadmap phase and two rule sentences.",
+    "tone": "Direct.",
+    "audience": "The next coding agent and the maintainer.",
+    "response": "deployable-product is the next phase, shippin-cloud depends on it, and license-choice depends on shippin-cloud."
+  },
+  "sources": [
+    {"kind": "code", "ref": ".ai/modules/roadmap/data/roadmap.json"},
+    {"kind": "code", "ref": ".cursor/rules/product-boundaries.mdc"},
+    {"kind": "code", "ref": ".cursor/rules/license-and-scale.mdc"},
+    {"kind": "code", "ref": "Dockerfile.fdb"},
+    {"kind": "code", "ref": "resources/scale/docker-compose.yml"}
+  ],
+  "concerns": [
+    "The two-node cargo test is not a deployable image. Marking shippin-cloud next would skip the product the maintainer wants to see.",
+    "Zoho still waits until shippin.cloud hosts that image. It does not block the license, and the license does not wait on the client.",
+    "Dockerfile.fdb and resources/scale do not yet prove a mailbox across two running containers. That proof is the new phase, not this edit."
+  ],
+  "context": "two-node-shared is done. The maintainer wants a product they can run, then pull into shippin.cloud, and only then a license.",
+  "current_state": "license-choice had no dependencies, so an agent could write Cargo.toml before any deployable image existed. shippin-cloud depended directly on the in-process two-node test.",
+  "target_design": "deployable-product depends on two-node-shared. shippin-cloud depends on deployable-product. license-choice and zoho-client both depend on shippin-cloud. Current work is the deployable image only.",
+  "changes": [
+    "Add the deployable-product phase to .ai/modules/roadmap/data/roadmap.json.",
+    "Point shippin-cloud at that phase and point license-choice at shippin-cloud.",
+    "Point zoho-client at shippin-cloud.",
+    "Say the same order in product-boundaries.mdc and license-and-scale.mdc."
+  ],
+  "boundaries": [
+    "Do not choose a license.",
+    "Do not start shippin.cloud hosting.",
+    "Do not build the deployable image in this edit.",
+    "Do not add a client, an admin UI, or a second mail server."
+  ],
+  "verification": [
+    {
+      "name": "roadmap-order",
+      "command": "python -c \"import json; r=json.load(open('.ai/modules/roadmap/data/roadmap.json')); p={x['id']:x for x in r['phases']}; assert p['deployable-product']['status']=='not_started'; assert p['deployable-product']['depends_on']==['two-node-shared']; assert p['shippin-cloud']['depends_on']==['deployable-product']; assert p['license-choice']['depends_on']==['shippin-cloud']; assert p['zoho-client']['depends_on']==['shippin-cloud']\"",
+      "proves": "The license cannot be the next phase. The next phase is the deployable image, hosting depends on that image, and the license depends on hosting.",
+      "expected": "exit 0",
+      "result": "order-ok"
+    },
+    {
+      "name": "module-check",
+      "command": "python .ai/machine/organize.py --check",
+      "proves": "The roadmap and the plan match their schemas. A broken phase record fails the whole tree.",
+      "expected": "exit 0",
+      "result": "{\"modules\": 6, \"lines\": 581, \"documents\": 8, \"events\": 178, \"messages\": 69, \"tools\": 329, \"journal\": 5}"
+    }
+  ],
+  "status": "implemented"
+}

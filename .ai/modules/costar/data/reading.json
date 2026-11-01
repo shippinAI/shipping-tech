@@ -1,8 +1,8 @@
 {
-  "context": "The maintainer said foreign code is never pulled in blindly on this build.",
-  "objective": "Write wanted behavior here, in the module or crate that owns it, against a spec.",
-  "style": "One context folder with a skill, a schema, and a decision record.",
+  "context": "The maintainer said the deployable product should be multi-tenant, able to connect to other products, and have the groundwork to scale. Zoho and Google Docs capabilities were not written down.",
+  "objective": "Record the suite map and make the next image proof two isolated tenants with JMAP, CalDAV, and CardDAV up.",
+  "style": "A short map in the product rule and three roadmap objectives.",
   "tone": "Direct.",
   "audience": "The next coding agent and the maintainer.",
-  "response": "A canon module the checker discovers, and organize.py --check exiting 0."
+  "response": "Mail, calendar, contacts, and tenants stay in this engine. Docs, sheets, slides, drive, chat, and meetings are later products that connect."
 }

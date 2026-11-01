@@ -62,7 +62,7 @@ pdnsutil set-meta shippin.tech.test TSIG-ALLOW-DNSUPDATE shippin.tech-update-key
 pdnsutil set-meta shippin.tech.test ALLOW-DNSUPDATE-FROM '0.0.0.0/0'
 "#;
 
-pub async fn ensure_foundationdb() {
+pub async fn ensure_foundationdb() -> String {
     let container = FOUNDATIONDB
         .get_or_init(|| async {
             GenericImage::new("foundationdb/foundationdb", "7.4.6")
@@ -83,7 +83,7 @@ pub async fn ensure_foundationdb() {
             .await
             .contains("The database is available")
         {
-            return;
+            break;
         }
         let created = fdbcli(container, "configure new single memory").await;
         if created.contains("Database created") || created.contains("Already exists") {
@@ -94,16 +94,34 @@ pub async fn ensure_foundationdb() {
         }
         tokio::time::sleep(Duration::from_secs(2)).await;
     }
+
+    let raw = exec_output(container, ["cat", "/var/fdb/fdb.cluster"]).await;
+    let contents = raw.trim();
+    if contents.is_empty() {
+        panic!("FoundationDB cluster file was empty");
+    }
+    let path = std::env::temp_dir().join("shippin-tech-fdb.cluster");
+    std::fs::write(&path, format!("{contents}\n"))
+        .expect("Failed to write FoundationDB cluster file");
+    path.to_string_lossy().into_owned()
 }
 
 async fn fdbcli(container: &ContainerAsync<GenericImage>, command: &str) -> String {
+    exec_output(
+        container,
+        ["fdbcli", "--exec", command, "--timeout", "5"],
+    )
+    .await
+}
+
+async fn exec_output(
+    container: &ContainerAsync<GenericImage>,
+    command: impl IntoIterator<Item = impl Into<String>>,
+) -> String {
     let mut result = container
-        .exec(
-            ExecCommand::new(["fdbcli", "--exec", command, "--timeout", "5"])
-                .with_cmd_ready_condition(CmdWaitFor::exit()),
-        )
+        .exec(ExecCommand::new(command).with_cmd_ready_condition(CmdWaitFor::exit()))
         .await
-        .expect("Failed to exec fdbcli");
+        .expect("Failed to exec in container");
     let stdout = result.stdout_to_vec().await.unwrap_or_default();
     let stderr = result.stderr_to_vec().await.unwrap_or_default();
     format!(
@@ -216,7 +234,7 @@ pub async fn ensure_nats() {
 pub async fn ensure_minio() {
     MINIO
         .get_or_init(|| async {
-            GenericImage::new("minio/minio", "latest")
+            GenericImage::new("cgr.dev/chainguard/minio", "latest")
                 .with_env_var("MINIO_ROOT_USER", "minioadmin")
                 .with_env_var("MINIO_ROOT_PASSWORD", "minioadmin")
                 .with_cmd(["server", "/data", "--console-address", ":9001"])
@@ -284,7 +302,7 @@ pub async fn ensure_keycloak() {
                 .with_cmd(["start-dev", "--import-realm"])
                 .with_copy_to(
                     "/opt/keycloak/data/import/shippin.tech-realm.json",
-                    include_bytes!("../../docker/keycloak/shippin.tech-realm.json").to_vec(),
+                    include_bytes!("../../docker/keycloak/shippin-tech-realm.json").to_vec(),
                 )
                 .with_mapped_port(9080, 9080.tcp())
                 .with_startup_timeout(READY_TIMEOUT)

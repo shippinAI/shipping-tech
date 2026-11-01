@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "id": "2026-10-31-private-thought",
+  "title": "File private thoughts into the existing reasoning record",
+  "costar": {
+    "context": "Cursor's afterAgentThought hook sends the full private thinking text. The chats copier stored the raw event and did not write reasoning.jsonl.",
+    "objective": "Capture that full text in the existing reasoning record.",
+    "style": "One function in the existing copier.",
+    "tone": "Direct.",
+    "audience": "The next coding agent and the maintainer.",
+    "response": "afterAgentThought lands as kind thought, and preCompact lands as kind compaction."
+  },
+  "sources": [
+    {"kind": "code", "ref": ".ai/machine/copy_chats.py"},
+    {"kind": "code", "ref": ".ai/modules/chats/schema/reasoning.schema.json"},
+    {"kind": "code", "ref": ".cursor/hooks.json"},
+    {"kind": "web", "ref": "https://cursor.com/docs/hooks"}
+  ],
+  "concerns": [
+    "Earlier thoughts were never spooled, so they cannot be backfilled.",
+    "duration_ms stays on the session event. The reasoning row holds the full text.",
+    "The secret redactor still replaces bearer-like tokens inside a thought."
+  ],
+  "context": "reasoning.jsonl already accepts kind thought and kind compaction. The hook for afterAgentThought did not fill it.",
+  "current_state": "spool_and_file wrote events.jsonl and copied prompts and public replies. Private thinking stayed inside the event payload only.",
+  "target_design": "The same hook writes the untrimmed thinking text to reasoning.jsonl. Compaction writes every non-envelope field as kind compaction.",
+  "changes": [
+    "copy_chats.py files afterAgentThought text as kind thought and preCompact as kind compaction.",
+    "The chats skill names those two writes.",
+    "The self-test checks a 4000-character thought survives and a secret inside it is redacted."
+  ],
+  "boundaries": [
+    "Do not add a new store.",
+    "Do not copy the public reply into reasoning.jsonl.",
+    "Do not backfill thoughts that were never received."
+  ],
+  "verification": [
+    {
+      "name": "private-thought-is-complete",
+      "command": "python .ai/machine/copy_chats.py --self-test",
+      "proves": "A long afterAgentThought text is stored whole as kind thought, a secret inside it is redacted, and preCompact is stored as kind compaction.",
+      "expected": "exit 0 and thought_chars greater than 4000",
+      "result": "{\"ok\": true, \"thought_chars\": 4035}"
+    },
+    {
+      "name": "module-check",
+      "command": "python .ai/machine/organize.py --check",
+      "proves": "The journal line and this plan match their schemas.",
+      "expected": "exit 0",
+      "result": "{\"modules\": 6, \"lines\": 582, \"documents\": 10, \"events\": 178, \"messages\": 69, \"tools\": 329, \"journal\": 6}"
+    }
+  ],
+  "status": "implemented"
+}

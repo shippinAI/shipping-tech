@@ -1,11 +1,11 @@
 # Two shippin.tech nodes, one FoundationDB cluster, one S3 bucket, one NATS coordinator.
-# Build with Dockerfile.fdb, which uses the `scale` feature and leaves `enterprise` off.
+# Build with Dockerfile.fdb, which uses `--features "scale,enterprise"`.
 #
 # The file mounted at /etc/shippin.tech/config.json is only the shared data store.
 # S3 and NATS are registry records in that database. tests/src/cluster/scale.rs
 # writes them and checks that the nodes lease different ids and that a message
 # appended on node A is fetched on node B:
-#   STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes
+#   RUST_MIN_STACK=33554432 STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes
 
 services:
   foundationdb:

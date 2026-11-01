@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "id": "2026-10-31-two-node-shared",
+  "title": "Prove two nodes share one mailbox",
+  "costar": {
+    "context": "The roadmap's build and one-node phases are done. two-node-shared was not_started, and shippin-cloud, the Zoho client, and the license choice depend on that proof or on a maintainer decision.",
+    "objective": "Observe the two-node exit proof: a message appended on one node is fetched from the other, with different node ids, FoundationDB, one S3 bucket, and NATS.",
+    "style": "One ignored integration test, a harness fix, and a roadmap status change.",
+    "tone": "Direct.",
+    "audience": "The next coding agent and the maintainer.",
+    "response": "scale_two_nodes exits 0, two-node-shared is done, and organize.py --check exits 0."
+  },
+  "sources": [
+    {"kind": "code", "ref": ".ai/modules/roadmap/data/roadmap.json"},
+    {"kind": "code", "ref": ".cursor/rules/product-boundaries.mdc"},
+    {"kind": "code", "ref": ".cursor/rules/license-and-scale.mdc"},
+    {"kind": "code", "ref": "crates/main/Cargo.toml"},
+    {"kind": "code", "ref": "Dockerfile.fdb"},
+    {"kind": "code", "ref": "tests/src/cluster/scale.rs"},
+    {"kind": "code", "ref": "tests/src/utils/containers.rs"},
+    {"kind": "code", "ref": "tests/src/utils/storage.rs"},
+    {"kind": "code", "ref": "crates/store/src/backend/foundationdb/main.rs"},
+    {"kind": "code", "ref": "resources/scale/docker-compose.yml"},
+    {"kind": "web", "ref": "https://jacar.es/en/fix-pull-access-denied-minio-docker/"}
+  ],
+  "concerns": [
+    "The proof runs in WSL with libfdb_c.so and Docker. A native Windows cargo test --features scale is not this proof.",
+    "An unoptimized run overflowed the default worker stack. The passing command sets RUST_MIN_STACK=33554432.",
+    "minio/minio is gone from Docker Hub. The harness pulls cgr.dev/chainguard/minio, which answered /minio/health/live with the same server command.",
+    "FoundationDbStore::default() still has cluster_file null. Only the test store builder writes the container cluster file to the host.",
+    "The test crate did not compile until AssertResult was imported, the Keycloak realm path matched shippin-tech-realm.json, and itip_merge_changes received the iTIP calendar.",
+    "License choice, shippin.cloud hosting, and the Zoho client stay unstarted."
+  ],
+  "context": "Two nodes must share FoundationDB, one S3 bucket, and NATS, while the default build stays rocks and enterprise. The ignored test scale_two_nodes is the exit proof.",
+  "current_state": "scale_two_nodes passed in WSL. Node A appends scale-body-from-node-a over IMAP and node B fetches that body. The nodes lease different ids. The default Windows build of shippin-tech already exited 0.",
+  "target_design": "The shared layout stays DataStore::FoundationDb, BlobStore::S3, and Coordinator::Nats. Rocks remains a default feature. Production cluster_file stays unset so compose can keep mounting /var/fdb. The test copies /var/fdb/fdb.cluster out of the FoundationDB container and passes that path in.",
+  "changes": [
+    "tests/src/cluster/scale.rs imports AssertResult and records RUST_MIN_STACK=33554432 on the ignored test.",
+    "tests/src/utils/containers.rs copies the FoundationDB cluster file to the host, and pulls cgr.dev/chainguard/minio instead of minio/minio.",
+    "tests/src/utils/storage.rs passes that cluster file into FoundationDbStore when STORE=FoundationDb.",
+    "tests/src/utils/containers.rs reads tests/docker/keycloak/shippin-tech-realm.json.",
+    "tests/src/webdav/cal_itip.rs passes the iTIP calendar into itip_merge_changes so the test crate compiles.",
+    "resources/scale/docker-compose.yml no longer says Dockerfile.fdb leaves enterprise off.",
+    "two-node-shared status in .ai/modules/roadmap/data/roadmap.json is done. .cursor/skills/roadmap is a junction to that folder."
+  ],
+  "boundaries": [
+    "Do not change default features in crates/main/Cargo.toml.",
+    "Do not remove enterprise from either Dockerfile.",
+    "Do not use store::backend::composite or the sharded stores as the shared layout.",
+    "Do not choose a license, host shippin.cloud, or start the Zoho client.",
+    "Do not change production FoundationDbStore::default() cluster_file.",
+    "Do not open a GitHub issue or pull request."
+  ],
+  "verification": [
+    {
+      "name": "scale-two-nodes",
+      "command": "RUST_MIN_STACK=33554432 STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes",
+      "proves": "A message appended on one node is fetched from the other node, and the two nodes leased different ids. A single fixture that never crosses nodes cannot pass this test.",
+      "expected": "exit 0 and test cluster::scale::scale_two_nodes ok",
+      "result": "WSL Ubuntu, libfdb_c 7.4.8, Docker, CARGO_PROFILE_DEV_DEBUG=0. test cluster::scale::scale_two_nodes ... ok. test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 96 filtered out; finished in 13.12s. EXIT=0."
+    },
+    {
+      "name": "default-build-keeps-rocks-and-enterprise",
+      "command": "cargo build -p shippin-tech",
+      "proves": "The one-node build still finishes with the default features rocks and enterprise. The scale proof did not replace that build.",
+      "expected": "exit 0",
+      "result": "Finished `dev` profile [unoptimized + debuginfo] target(s) in 32.73s. exit 0."
+    }
+  ],
+  "status": "implemented"
+}

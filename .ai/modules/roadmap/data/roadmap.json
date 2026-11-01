@@ -21,50 +21,72 @@
       "id": "license-open",
       "statement": "The license is still deciding, between a true open-source license and the Business Source License. Do not mark the project AGPL.",
       "source": ".cursor/rules/license-and-scale.mdc"
+    },
+    {
+      "id": "multi-tenant",
+      "statement": "A deployment hosts more than one tenant. Domains and accounts belong to a tenant, and one tenant cannot read another tenant's mailbox.",
+      "source": "crates/common/src/auth/mod.rs"
+    },
+    {
+      "id": "connect",
+      "statement": "Other products connect through JMAP, CalDAV, CardDAV, and the directory. Writer, Sheet, Show, WorkDrive, Cliq, and Meeting, and Google Docs, Sheets, Slides, Drive, Chat, and Meet, stay separate products on those surfaces.",
+      "source": ".cursor/rules/product-boundaries.mdc"
+    },
+    {
+      "id": "scale-groundwork",
+      "statement": "The scale image keeps FoundationDB, one S3 bucket, and NATS or Redis, and it still includes rocks for the one-node case. That is the layout a larger deployment grows on.",
+      "source": "crates/main/Cargo.toml"
     }
   ],
   "phases": [
     {
       "id": "build",
       "statement": "cargo build -p shippin-tech finishes with rocks and enterprise enabled.",
-      "status": "in_progress",
+      "status": "done",
       "exit_proof": "cargo build -p shippin-tech --config \"build.rustc-wrapper=''\" exits 0 and the executable exists.",
       "depends_on": []
     },
     {
       "id": "one-node-mailbox",
       "statement": "One Rocks node, one domain, one mailbox, SMTP in and IMAP out.",
-      "status": "not_started",
+      "status": "done",
       "exit_proof": "A message accepted by SMTP on that node is fetched over IMAP from the same mailbox.",
       "depends_on": ["build"]
     },
     {
       "id": "two-node-shared",
       "statement": "Two nodes with different node ids share FoundationDB, one S3 bucket, and NATS or Redis. A mailbox written on one is read on the other. Rocks stays in the build for the one-node case.",
-      "status": "not_started",
+      "status": "done",
       "exit_proof": "The same message is fetched from the second node after it was appended on the first.",
       "depends_on": ["one-node-mailbox"]
     },
     {
-      "id": "shippin-cloud",
-      "statement": "shippin.cloud hosts that same binary.",
+      "id": "deployable-product",
+      "statement": "The scale image runs as its own multi-tenant product: two nodes share FoundationDB, one S3 bucket, and NATS, and two tenants share that deployment. JMAP, CalDAV, and CardDAV are up so another product can connect. That image is what shippin.cloud will pull.",
       "status": "not_started",
-      "exit_proof": "The hosted process is the binary built from this repository, with the same feature set as the two-node proof.",
+      "exit_proof": "A container built from Dockerfile.fdb, started from resources/scale, returns tenant A's message from the second node after it was appended on the first, and tenant B cannot fetch it. The same process serves JMAP, CalDAV, and CardDAV.",
       "depends_on": ["two-node-shared"]
     },
     {
-      "id": "license-choice",
-      "statement": "The maintainer writes the license choice into Cargo.toml and a LICENSE file.",
+      "id": "shippin-cloud",
+      "statement": "shippin.cloud hosts that same deployable image, not a second mail engine.",
       "status": "not_started",
-      "exit_proof": "Cargo.toml license is no longer deciding, and a LICENSE file matches that value.",
-      "depends_on": []
+      "exit_proof": "The hosted process is the image built from Dockerfile.fdb, with the same feature set as the deployable-product proof.",
+      "depends_on": ["deployable-product"]
     },
     {
       "id": "zoho-client",
-      "statement": "Map the hosted-mail experience onto JMAP, CalDAV, and the directory that already exist.",
+      "statement": "Map mail, calendar, and contacts onto JMAP, CalDAV, CardDAV, and the directory. Documents, spreadsheets, slides, drive, chat, and meetings are separate products that connect to this server.",
       "status": "not_started",
-      "exit_proof": "A client uses the existing JMAP, CalDAV, and directory surfaces. No second mail server is added.",
-      "depends_on": ["two-node-shared"]
+      "exit_proof": "A client uses the existing JMAP, CalDAV, CardDAV, and directory surfaces. No document editor, chat service, or second mail server is added in this repository.",
+      "depends_on": ["shippin-cloud"]
+    },
+    {
+      "id": "license-choice",
+      "statement": "The maintainer writes the license choice into Cargo.toml and a LICENSE file. This is last, after shippin.cloud hosts the deployable image.",
+      "status": "not_started",
+      "exit_proof": "Cargo.toml license is no longer deciding, and a LICENSE file matches that value.",
+      "depends_on": ["shippin-cloud"]
     }
   ]
 }
