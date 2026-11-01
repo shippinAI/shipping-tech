@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "id": "2026-11-01-shippin-tech-scaffolding",
+  "title": "Scaffold shippin.tech clients and contracts without inventing .ai product domains",
+  "costar": {
+    "context": "suite_readiness_assess is done. Engine and scale path are strong. The missing surface is shippin.tech's own clients and mailcow-grade ops packaging. .ai/modules is agent operating context only.",
+    "objective": "Lock a schema-first product tree under shippin.tech: rename zoho-client to shippin-clients, add contracts/ and clients/, keep Zoho and mailcow as later importers, defer Docs, leave .ai as ops-only.",
+    "style": "Folder and contract scaffolding first; no second mail server; one binary.",
+    "tone": "Direct.",
+    "audience": "The maintainer and the next coding agent.",
+    "response": "Draft plan filed; rename and contracts/clients trees wait for approval before implementation."
+  },
+  "sources": [
+    {"kind": "code", "ref": ".cursor/rules/product-boundaries.mdc"},
+    {"kind": "code", "ref": ".ai/modules/roadmap/data/roadmap.json"},
+    {"kind": "code", "ref": ".ai/PROTOCOL.md"},
+    {"kind": "code", "ref": "api/v1/openapi.yml"},
+    {"kind": "code", "ref": "crates/jmap-proto"},
+    {"kind": "code", "ref": "crates/dav-proto"},
+    {"kind": "code", "ref": "crates/directory"},
+    {"kind": "code", "ref": "resources/schema"},
+    {"kind": "code", "ref": "resources/scale/docker-compose.yml"},
+    {"kind": "web", "ref": "https://jmap.io/spec.html"}
+  ],
+  "concerns": [
+    "Treating .ai/modules as product domains invents architecture the assessment never had.",
+    "Keeping the roadmap id zoho-client will keep agents building a Zoho skin instead of shippin.tech clients.",
+    "Clients that skip contracts/ will couple to private Rust types and break the one-binary boundary.",
+    "Starting Docs or importers before mail/calendar/contacts/admin reopens the suite trap the assessment closed."
+  ],
+  "context": "The readiness assessment scored engine strong, mailcow ops weak, suite clients not started, Docs out of scope. The next build is own clients on existing JMAP, CalDAV, CardDAV, and directory.",
+  "current_state": "Roadmap phase is still named zoho-client. No contracts/ or clients/ tree. OpenAPI and protocol crates exist. .ai/ holds chats, plans, roadmap, journal, costar, canon only.",
+  "target_design": "Product mindmap under shippin.tech: crates + api + resources + contracts + clients + later importers. shippin.cloud hosts the same binary. Zoho and mailcow are import sources after own clients work. Docs stays deferred.",
+  "changes": [
+    "Rename roadmap phase zoho-client to shippin-clients and update product-boundaries and README wording to own clients.",
+    "Add contracts/ pins for OpenAPI, JMAP allowlist, DAV, and directory/SCIM that clients bind to.",
+    "Add clients/{mail,calendar,contacts,admin} skeletons that only speak those contracts against one shippin-tech binary.",
+    "Add contract conformance tests under tests/.",
+    "Leave importers/ and Docs untouched until clients and ops packaging are real.",
+    "Do not add product domains under .ai/modules."
+  ],
+  "boundaries": [
+    ".ai/modules stays agent operating modules only.",
+    "No second mail server (Mox, Postfix, Dovecot) and no Go control plane.",
+    "No Zoho UI clone; Zoho and mailcow are later importers only.",
+    "No collaborative Docs editor in this plan.",
+    "Do not relicense LicenseRef-SEL blocks or remove enterprise from the default build.",
+    "Do not edit suite_readiness_assess under /opt/cursor/artifacts/plans."
+  ],
+  "verification": [
+    {
+      "name": "operating-tree-consistent",
+      "command": "python3 .ai/machine/organize.py --check",
+      "proves": "The new plan record and any roadmap rename still match module schemas.",
+      "expected": "exit 0"
+    },
+    {
+      "name": "no-invented-ai-product-domains",
+      "command": "test ! -d .ai/modules/engine && test ! -d .ai/modules/clients && test ! -d .ai/modules/cloud && test ! -d .ai/modules/ops && test ! -d .ai/modules/contracts",
+      "proves": "Scaffolding did not create .ai product-domain modules.",
+      "expected": "exit 0"
+    }
+  ],
+  "status": "draft"
+}
