@@ -1,8 +1,8 @@
 {
-  "context": "The maintainer said foreign code is never pulled in blindly on this build.",
-  "objective": "Write wanted behavior here, in the module or crate that owns it, against a spec.",
-  "style": "One context folder with a skill, a schema, and a decision record.",
+  "context": "The assessment plan suite_readiness_assess is approved. Engine scale phases are marked done; shippin.cloud, zoho-client, and license-choice are open. Docker and FoundationDB clients are required to re-observe scale_two_nodes.",
+  "objective": "Evidence-back two-node-shared, choose BSL so shippin.cloud can reserve hosted use, set zoho-client as the next product phase, and record that collaborative Docs stays out of scope until mail calendar contacts and admin exist.",
+  "style": "Operating-module updates, license file, product-boundary edit, and a journaled two-node proof.",
   "tone": "Direct.",
-  "audience": "The next coding agent and the maintainer.",
-  "response": "A canon module the checker discovers, and organize.py --check exiting 0."
+  "audience": "The maintainer and the next coding agent.",
+  "response": "scale_two_nodes observed and journaled, license no longer deciding, zoho-client in progress, Docs deferred in the roadmap, organize.py --check exits 0."
 }

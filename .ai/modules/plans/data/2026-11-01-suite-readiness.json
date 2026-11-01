@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "id": "2026-11-01-suite-readiness",
+  "title": "Evidence the scale proof and lock suite sequencing after the readiness assessment",
+  "costar": {
+    "context": "The assessment plan suite_readiness_assess is approved. Engine scale phases are marked done; shippin.cloud, zoho-client, and license-choice are open. Docker and FoundationDB clients are required to re-observe scale_two_nodes.",
+    "objective": "Evidence-back two-node-shared, choose BSL so shippin.cloud can reserve hosted use, set zoho-client as the next product phase, and record that collaborative Docs stays out of scope until mail calendar contacts and admin exist.",
+    "style": "Operating-module updates, license file, product-boundary edit, and a journaled two-node proof.",
+    "tone": "Direct.",
+    "audience": "The maintainer and the next coding agent.",
+    "response": "scale_two_nodes observed and journaled, license no longer deciding, zoho-client in progress, Docs deferred in the roadmap, organize.py --check exits 0."
+  },
+  "sources": [
+    {"kind": "code", "ref": ".ai/modules/roadmap/data/roadmap.json"},
+    {"kind": "code", "ref": ".cursor/rules/product-boundaries.mdc"},
+    {"kind": "code", "ref": ".cursor/rules/license-and-scale.mdc"},
+    {"kind": "code", "ref": "crates/main/Cargo.toml"},
+    {"kind": "code", "ref": "tests/src/cluster/scale.rs"},
+    {"kind": "code", "ref": "resources/scale/docker-compose.yml"},
+    {"kind": "web", "ref": "https://mariadb.com/bsl11/"}
+  ],
+  "concerns": [
+    "scale_two_nodes needs Docker plus libfdb_c; a missing daemon makes the roadmap claim unobserved again.",
+    "Writing BUSL-1.1 without touching LicenseRef-SEL blocks must keep enterprise on the default build.",
+    "Choosing zoho-client first must not start collaborative Docs or a second mail server.",
+    "A check that only greps one file would miss a roadmap objective or phase left inconsistent."
+  ],
+  "context": "The readiness assessment scored the engine strong and the mailcow/Zoho/Docs product surfaces weak. The attached plan's todos are the next moves.",
+  "current_state": "Roadmap marks two-node-shared done without a journaled run. license is deciding. product-boundaries still say Current work is Scale. Docs is absent from the roadmap.",
+  "target_design": "Journaled scale_two_nodes proof, BUSL-1.1 at the root and in crates/main/Cargo.toml, zoho-client in_progress as current work, Docs deferred by an explicit objective, license-and-scale and product-boundaries rewritten to match.",
+  "changes": [
+    "Run STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes and journal the result.",
+    "Set crates/main/Cargo.toml license to BUSL-1.1 and add a root LICENSE.",
+    "Rewrite license-and-scale.mdc for the BSL choice; leave SEL blocks and enterprise defaults alone.",
+    "Set zoho-client to in_progress; add a no-docs-yet objective; update product-boundaries Current work.",
+    "Leave shippin.cloud not_started until hosting work begins."
+  ],
+  "boundaries": [
+    "Do not relicense SPDX LicenseRef-SEL blocks.",
+    "Do not remove enterprise from default or from Dockerfiles.",
+    "Do not add a webmail, Docs editor, Go control plane, or second MTA in this pass.",
+    "Do not edit the attached assessment plan file under /opt/cursor/artifacts/plans."
+  ],
+  "verification": [
+    {
+      "name": "scale-two-nodes-observed",
+      "command": "STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes --nocapture",
+      "proves": "A message appended on node A is fetched on node B under FoundationDB, S3, and NATS.",
+      "expected": "test scale_two_nodes ... ok",
+      "result": "EXIT 0; test cluster::scale::scale_two_nodes ... ok (FoundationDB host cluster file at /tmp/shippin.tech-test-fdb.cluster, elestio/minio, NATS; 16MiB thread stack in the test harness)."
+    },
+    {
+      "name": "operating-tree-consistent",
+      "command": "python3 .ai/machine/organize.py --check",
+      "proves": "Roadmap, plan, costar, and journal records all match their schemas after the sequencing edits.",
+      "expected": "exit 0",
+      "result": "{\"modules\": 6, \"lines\": 583, \"documents\": 7, \"events\": 178, \"messages\": 69, \"tools\": 329, \"journal\": 7}; exit 0"
+    }
+  ],
+  "status": "implemented"
+}

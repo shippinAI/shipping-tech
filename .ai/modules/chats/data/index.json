@@ -1,28 +1,28 @@
 {
   "sources": {
-    "C:\\Users\\jessa\\.cursor\\projects\\c-Users-jessa-Downloads-mail-shippin-shippin-tech\\agent-transcripts\\6265500a-e3a8-40df-af1f-7534db0c8ade\\6265500a-e3a8-40df-af1f-7534db0c8ade.jsonl": {
-      "offset": 10482,
-      "size": 10482,
+    "/workspace/.ai/modules/chats/data/sessions/6265500a-e3a8-40df-af1f-7534db0c8ade/events.jsonl": {
+      "offset": 17100,
+      "size": 17100,
       "session_key": "6265500a-e3a8-40df-af1f-7534db0c8ade",
-      "updated_at": "2026-10-30T03:03:47.252772+00:00"
+      "updated_at": "2026-11-01T02:31:00+00:00"
     },
-    "C:\\Users\\jessa\\.cursor\\projects\\c-Users-jessa-Downloads-mail-shippin-shippin-tech\\agent-transcripts\\8c3e64f5-dc24-4e62-a31e-1df9edf83b4d\\8c3e64f5-dc24-4e62-a31e-1df9edf83b4d.jsonl": {
-      "offset": 1992,
-      "size": 1992,
+    "/workspace/.ai/modules/chats/data/sessions/8c3e64f5-dc24-4e62-a31e-1df9edf83b4d/events.jsonl": {
+      "offset": 3848,
+      "size": 3848,
       "session_key": "8c3e64f5-dc24-4e62-a31e-1df9edf83b4d",
-      "updated_at": "2026-10-30T03:03:47.290182+00:00"
+      "updated_at": "2026-11-01T02:31:00+00:00"
     },
-    "C:\\Users\\jessa\\.cursor\\projects\\c-Users-jessa-Downloads-mail-shippin-shippin-tech\\agent-transcripts\\a06e2efe-3026-4fda-a6ec-f81c0faeec17\\a06e2efe-3026-4fda-a6ec-f81c0faeec17.jsonl": {
-      "offset": 155685,
-      "size": 155685,
+    "/workspace/.ai/modules/chats/data/sessions/a06e2efe-3026-4fda-a6ec-f81c0faeec17/events.jsonl": {
+      "offset": 209568,
+      "size": 209568,
       "session_key": "a06e2efe-3026-4fda-a6ec-f81c0faeec17",
-      "updated_at": "2026-10-30T04:15:03.697222+00:00"
+      "updated_at": "2026-11-01T02:31:00+00:00"
     },
-    "C:\\Users\\jessa\\.cursor\\projects\\c-Users-jessa-Downloads-mail-shippin-shippin-tech\\agent-transcripts\\b9757e69-99aa-4c11-a18f-b9fb9315f9b9\\b9757e69-99aa-4c11-a18f-b9fb9315f9b9.jsonl": {
-      "offset": 4732,
-      "size": 4732,
+    "/workspace/.ai/modules/chats/data/sessions/b9757e69-99aa-4c11-a18f-b9fb9315f9b9/events.jsonl": {
+      "offset": 8081,
+      "size": 8081,
       "session_key": "b9757e69-99aa-4c11-a18f-b9fb9315f9b9",
-      "updated_at": "2026-10-30T03:03:47.636835+00:00"
+      "updated_at": "2026-11-01T02:31:00+00:00"
     }
   }
 }

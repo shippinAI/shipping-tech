@@ -1,21 +1,26 @@
 ---
-description: License is undecided. Rocks stays a supported store. Enterprise stays in the build.
+description: Business Source License chosen. Rocks stays a supported store. Enterprise stays in the build.
 alwaysApply: true
 ---
 
 # License and scale
 
-## License is not chosen
+## License is BUSL-1.1
 
-Do not mark this project AGPL. The maintainer is choosing between a true open-source license and the Business Source License (BSL).
+The project license is the Business Source License 1.1. Say so in `crates/main/Cargo.toml` (`license = "BUSL-1.1"`) and the root `LICENSE` file.
 
-BSL is source-available. It can limit offering the software as a competing hosted service until a published conversion date, then it becomes a stated open license. A true open-source license cannot reserve commercial hosting for shippin.cloud.
+BSL is source-available. The Additional Use Grant allows production use except offering a Competing Service substantially similar to shippin.cloud. On the Change Date in `LICENSE` (2030-11-01), the Change License is Apache License, Version 2.0.
 
-Until that choice is written into `Cargo.toml` (`license` is still `"deciding"`) and a `LICENSE` file:
+Do not mark the project AGPL.
 
+Blocks marked `SPDX-License-Identifier: LicenseRef-SEL` or wrapped in `SPDX-SnippetBegin` / `SPDX-SnippetEnd` are the shippin.tech Enterprise License. They are not open source.
+
+When editing those blocks:
+
+- leave the SPDX headers in place
+- do not relicense them as BUSL or Apache
+- do not copy them into a BUSL file
 - leave `enterprise` on the default build and on both Dockerfiles
-- leave `SPDX-License-Identifier: LicenseRef-SEL` blocks and their headers untouched
-- do not relicense those blocks and do not copy them into a new file under another license
 
 ## Rocks
 

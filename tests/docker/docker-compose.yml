@@ -119,7 +119,7 @@ services:
   # MinIO (S3-compatible)
   # ---------------------------------------------------------------------------
   minio:
-    image: minio/minio:latest
+    image: elestio/minio:latest
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin

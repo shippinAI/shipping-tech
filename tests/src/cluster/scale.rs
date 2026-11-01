@@ -1,7 +1,7 @@
 use crate::{
     imap::append::assert_append_message,
     utils::{
-        imap::{ImapConnection, Type},
+        imap::{AssertResult, ImapConnection, Type},
         server::TestServerBuilder,
     },
 };
@@ -25,13 +25,31 @@ use types::id::Id;
 
 const BODY: &str = "scale-body-from-node-a";
 
-#[tokio::test(flavor = "multi_thread")]
-#[ignore = "STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes"]
-pub async fn scale_two_nodes() {
+#[test]
+#[ignore = "RUST_MIN_STACK=16777216 STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes"]
+pub fn scale_two_nodes() {
+    // FoundationDB client init needs more than the default worker stack.
+    std::thread::Builder::new()
+        .name("scale_two_nodes".into())
+        .stack_size(16 * 1024 * 1024)
+        .spawn(|| {
+            tokio::runtime::Builder::new_multi_thread()
+                .enable_all()
+                .thread_stack_size(16 * 1024 * 1024)
+                .build()
+                .expect("runtime")
+                .block_on(scale_two_nodes_inner())
+        })
+        .expect("spawn scale_two_nodes")
+        .join()
+        .expect("scale_two_nodes thread")
+}
+
+async fn scale_two_nodes_inner() {
     if std::env::var("STORE").ok().as_deref() != Some("FoundationDb") {
         panic!(
             "Set STORE=FoundationDb so both nodes share one cluster file. \
-             Example: STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes"
+             Example: RUST_MIN_STACK=16777216 STORE=FoundationDb cargo test -p tests --features scale -- --ignored scale_two_nodes"
         );
     }
 
